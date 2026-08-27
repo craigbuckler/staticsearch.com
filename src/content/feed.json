@@ -1,0 +1,26 @@
+{
+  "version": "https://jsonfeed.org/version/1.1",
+  "language": "${ tacs.config.language }",
+  "home_page_url": "${ tacs.config.domain }${ tacs.root }",
+  "feed_url": "${ tacs.config.domain }${ data.link }",
+  "title": "${ tacs.lib.feed.json( tacs.config.title, tacs.config.domain, tacs.root ) }",
+  "description": "${ tacs.lib.feed.json( tacs.config.description, tacs.config.domain, tacs.root ) }",
+  "icon": "${ tacs.config.domain }${ tacs.root }favicon512.png",
+  "favicon": "${ tacs.config.domain }${ tacs.root }favicon.svg",
+  "items": [
+    ${ tacs.dir.get('blog').filter(p => p.index !== false).slice(0,10).map((p, i, all) => `
+    {
+      "id": "${ tacs.config.domain }${ p.link }",
+      "url": "${ tacs.config.domain }${ p.link }",
+      "date_published": "${ tacs.lib.format.dateISOfull( p.date ) }",
+      "date_modified": "${ tacs.lib.format.dateISOfull( p.modified || p.date ) }",
+      "title": "${ tacs.lib.feed.json( p.title, tacs.config.domain, tacs.root ) }",
+      "summary": "${ tacs.lib.feed.json( p.description, tacs.config.domain, tacs.root ) }",
+      ${ p?.tags?.length ? `"tags": [${ p.tags.map(t => `"${ t.tag }"`).join(',') }],` : '' }
+      ${ p.imageHero ? `"image": "${ p.imageHero }",` : '' }
+      ${ p.imageSocial ? `"banner_image": "${ p.imageSocial }",` : '' }
+      "content_html": "${ tacs.lib.feed.json( p.contentRendered, tacs.config.domain, tacs.root ) }"
+    }${ i < all.length - 1 ? ',' : ''}
+    `)}
+  ]
+}

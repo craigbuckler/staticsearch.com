@@ -1,0 +1,41 @@
+<details class="share" name="headermenu">
+
+  <summary title="share page"><svg><use xlink:href="#svg-share"></use></svg> <span class="alt">share</span></summary>
+
+  <menu>
+
+    <li><strong>share page using</strong></li>
+
+    <li hidden><a href="#shareapp" title="share via an app" data-url="${ tacs.config.domain + data.link }" data-title="${ data.title }" data-description="${ data.description }"><svg><use xlink:href="#svg-share"></use></svg> device app</a></li>
+
+    <li><a href="https://x.com/intent/tweet?url=${ encodeURIComponent(tacs.config.domain + data.link) }&amp;text=${ encodeURIComponent(data.title + '\n' + data.description) }" title="share on X" target="_blank" rel="noopener noreferrer"><svg><use xlink:href="#svg-x"></use></svg> X.com</a></li>
+
+    <li><a href="https://bsky.app/intent/compose?text=${ encodeURIComponent(data.title + ': \n' + data.description + ' \n' + tacs.config.domain + data.link) }" title="share on Bluesky" target="_blank" rel="noopener noreferrer"><svg><use xlink:href="#svg-bluesky"></use></svg> Bluesky</a></li>
+
+    <li><a href="https://threads.net/intent/post?text=${ encodeURIComponent(data.title + ': \n' + data.description + ' \n' + tacs.config.domain + data.link) }" title="share on Theads" target="_blank" rel="noopener noreferrer"><svg><use xlink:href="#svg-threads"></use></svg> Threads</a></li>
+
+    <li><a href="https://www.facebook.com/sharer/sharer.php?u=${ encodeURIComponent(tacs.config.domain + data.link) }" title="share on Facebook" target="_blank" rel="noopener noreferrer"><svg><use xlink:href="#svg-facebook"></use></svg> Facebook</a></li>
+
+    <li><a href="https://www.linkedin.com/shareArticle?mini=true&url=${ encodeURIComponent(tacs.config.domain + data.link) }&amp;title=${ encodeURIComponent(data.title) }" title="share on LinkedIn" target="_blank" rel="noopener noreferrer"><svg><use xlink:href="#svg-linkedin"></use></svg> LinkedIn</a></li>
+
+    <li><a href="https://www.reddit.com/submit/?url=${ encodeURIComponent(tacs.config.domain + data.link) }&amp;text=${ encodeURIComponent(data.title) }" title="share on Reddit" target="_blank" rel="noopener noreferrer"><svg><use xlink:href="#svg-reddit"></use></svg> Reddit</a></li>
+
+    <li><a href="https://news.ycombinator.com/submitlink?u=${ encodeURIComponent(tacs.config.domain + data.link) }&amp;t=${ encodeURIComponent(data.title) }" title="share on Hacker News" target="_blank" rel="noopener noreferrer"><svg><use xlink:href="#svg-hackernews"></use></svg> Hacker News</a></li>
+
+    <li><a href="https://wordpress.com/press-this.php?u=${ encodeURIComponent(tacs.config.domain + data.link) }&amp;t=${ encodeURIComponent(data.title) }&amp;s=${ encodeURIComponent(data.description) }" title="share on WordPress.com" target="_blank" rel="noopener noreferrer"><svg><use xlink:href="#svg-wordpress"></use></svg> WordPress</a></li>
+
+    <li><a href="https://www.evernote.com/clip.action?url=${ encodeURIComponent(tacs.config.domain + data.link) }&amp;title=${ encodeURIComponent(data.title) }" title="share on Evernote" target="_blank" rel="noopener noreferrer"><svg><use xlink:href="#svg-evernote"></use></svg> Evernote</a></li>
+
+    <li><a href="https://trello.com/add-card?url=${ encodeURIComponent(tacs.config.domain + data.link) }&amp;name=${ encodeURIComponent(data.title) }&amp;desc=${ encodeURIComponent(data.description) }&amp;mode=popup" title="share on Trello" target="_blank" rel="noopener noreferrer"><svg><use xlink:href="#svg-trello"></use></svg> Trello</a></li>
+
+    <li><a href="https://t.me/share/url?url=${ encodeURIComponent(tacs.config.domain + data.link) }&amp;text=${ encodeURIComponent(data.title) }" title="share on Telegram" target="_blank" rel="noopener noreferrer"><svg><use xlink:href="#svg-telegram"></use></svg> Telegram</a></li>
+
+    <li><a href="https://web.whatsapp.com/send?text=${ encodeURIComponent(data.title + '\n' + data.description + '\n' + tacs.config.domain + data.link) }" title="share via WhatsApp" rel="noopener noreferrer"><svg><use xlink:href="#svg-whatsapp"></use></svg> WhatsApp</a></li>
+
+    <li><a href="mailto:?subject=${ encodeURIComponent(data.title) }&amp;body=${ encodeURIComponent(data.description + '\n' + tacs.config.domain + data.link) }" title="share via email" rel="noopener noreferrer"><svg><use xlink:href="#svg-email"></use></svg> email</a></li>
+
+    <li hidden><a href="#print" title="print page"><svg><use xlink:href="#svg-print"></use></svg> print</a></li>
+
+  </menu>
+
+</details>

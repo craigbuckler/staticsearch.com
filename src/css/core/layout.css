@@ -1,0 +1,13 @@
+/* minimum size */
+main, body > header, body > footer, body > aside, .full, .backnext {
+
+  & > *:not(.full) {
+    inline-size: var(--main-width);
+    margin-inline: auto;
+  }
+
+}
+
+main {
+  padding-block-end: calc( var(--header-fix-height) + 2ch );
+}

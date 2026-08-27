@@ -1,0 +1,67 @@
+---
+title: StaticSearch released
+menu: false
+description: Introducing StaticSearch - a search engine for static sites.
+author: Craig Buckler
+tags: update, LiveLocalhost, PerfPro, ConCol
+priority: 1.0
+hero: images/books2.avif
+heroWidth: 1200
+heroHeight: 600
+heroAlt: root
+heroCaption: Image courtesy of <a href="https://unsplash.com/@studio_a">Ally Griffin</a>
+---
+
+This site is fairly large. While it offers reasonable navigation and [tags](__/tag), finding the page you want can be tricky.
+
+Static sites cannot easily provide search facilities because there's no back-end database. You can integrate a third-party search service such as [Alogia](https://www.algolia.com/), [AddSearch](https://www.addsearch.com/), or [Google's Programmable Search Engine](https://programmablesearchengine.google.com/). These index your site and provide a search API, but have an ongoing cost.
+
+JavaScript-only search facilities such as [Lunr](https://lunrjs.com/) require you to pass all content in a specific format. Every page then has a full index of your site, so the payload can become large as your site grows.
+
+My preferred option is [pagefind](https://pagefind.app/). This analyses your built site and creates WASM binary indexes. Unfortunately, it can require some configuration, produces quite large files, and has problems with [Content Security Policies](https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/CSP) and Safari compatibility.
+
+*So I've rolled my own...*
+
+StaticSearch is my new search engine for static sites. It's enabled on Publican.dev: click the search icon in the header or press <kbd>Ctrl</kbd> | <kbd>Cmd</kbd> + <kbd>K</kbd>.
+
+StaticSearch is easy to use and fully compatible with Publican, but you can use any static site generator. It:
+
+1. quickly indexes built HTML (like pagefind)
+1. is pure JavaScript without any CSP issues, and
+1. has a tiny payload and no AI nonsense.
+
+At most, the search facility requires 13Kb of JavaScript and 4Kb of CSS. You can reduce that to just 6Kb if you're building your own UI. Word index data typically totals:
+
+* 100Kb for a 100 page site
+* 800Kb for a 1,000 page site.
+
+Index data is incrementally loaded on demand as you search for different words. Indexes are cached in [IndexedDB](https://www.npmjs.com/package/pixdb) so results appear faster the more searches you do.
+
+
+## StaticSearch quick start
+
+Assuming your static site has been generated in a sub-directory named `./build/`, run StaticSearch using:
+
+```bash
+npx staticsearch
+```
+
+It creates a new directory named `./build/search/` containing JavaScript code and index data.
+
+If your site is in a different directory, such as `./dist/`, use:
+
+```bash
+npx staticsearch --builddir ./dist/ --searchdir ./dist/search/
+```
+
+You can now add a search facility to the site using HTML code on any/all pages:
+
+```html
+<script type="module" src="/search/staticsearch-component.js"></script>
+
+<static-search>
+  <p>search</p>
+</static-search>
+```
+
+Any HTML element can be placed inside `<static-search>` to activate the search when it's clicked. You may then need to rebuild your site and re-run `staticsearch` to ensure everything's up to date.

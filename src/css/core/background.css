@@ -1,0 +1,80 @@
+/*
+  animated background
+*/
+@property --rg1x {
+  syntax: '<percentage>';
+  initial-value: 0%;
+  inherits: true;
+}
+
+@property --rg1y {
+  syntax: '<percentage>';
+  initial-value: 0%;
+  inherits: true;
+}
+
+@property --rg2x {
+  syntax: '<percentage>';
+  initial-value: 0%;
+  inherits: true;
+}
+
+@property --rg2y {
+  syntax: '<percentage>';
+  initial-value: 0%;
+  inherits: true;
+}
+
+:root {
+  --rg1x: 90%;
+  --rg1y: 10%;
+  --rg2x: 10%;
+  --rg2y: 90%;
+}
+
+body.animback {
+  /* ellipse from #2a303c and #1a222c */
+  background:
+    radial-gradient(ellipse at var(--rg1x) var(--rg1y), var(--color-back4) 0%, transparent 50%),
+    radial-gradient(ellipse at var(--rg2x) var(--rg2y), var(--color-back3) 0%, transparent 50%),
+    linear-gradient(135deg, var(--color-back1), var(--color-back2) 50%, var(--color-back1));
+  background-attachment: fixed;
+
+  @media (prefers-reduced-motion: no-preference) {
+    animation: backgroundMove 40s linear infinite alternate-reverse;
+  }
+
+}
+
+@keyframes backgroundMove {
+  0% {
+    --rg1x: 90%;
+    --rg1y: 10%;
+    --rg2x: 10%;
+    --rg2y: 90%;
+  }
+  25% {
+    --rg1x: 25%;
+    --rg1y: 25%;
+    --rg2x: 100%;
+    --rg2y: 100%;
+  }
+  50% {
+    --rg1x: 10%;
+    --rg1y: 90%;
+    --rg2x: 90%;
+    --rg2y: 10%;
+  }
+  75% {
+    --rg1x: 75%;
+    --rg1y: 75%;
+    --rg2x: 0%;
+    --rg2y: 0%;
+  }
+  100% {
+    --rg1x: 90%;
+    --rg1y: 10%;
+    --rg2x: 10%;
+    --rg2y: 90%;
+  }
+}

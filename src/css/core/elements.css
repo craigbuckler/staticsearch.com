@@ -1,0 +1,112 @@
+body {
+  font-family: var(--font-body);
+  font-size: var(--fsize-0);
+  font-weight: var(--font-weight-normal);
+  color: var(--color-fore1);
+  accent-color: var(--color-back5);
+  background-color: var(--color-back1);
+}
+
+h1, h2, h3 {
+  font-weight: var(--font-weight-head);
+  margin-block-start: 1.5em;
+  line-height: 0.9;
+  letter-spacing: -0.09em;
+  word-spacing: 0.05em;
+  color: var(--color-fore3);
+  scroll-margin-block-start: var(--header-fix-height);
+}
+
+h1 { font-size: var(--fsize-5); margin-block-start: 1.5rem; color: var(--color-fore2); }
+h2 { font-size: var(--fsize-4); }
+h3 { font-size: var(--fsize-3); }
+
+p {
+  margin-block-start: 1.2em;
+}
+
+:where(h1, h2, h3, h4, h5, h6) + p {
+  margin-block-start: 0.5em;
+}
+
+ul, ol, li {
+  margin-block: 1em 1.5em;
+}
+
+ul {
+  list-style-type: square;
+}
+
+li {
+  margin-block: 0.8em 0;
+  margin-inline: 2em;
+
+  p {
+    margin-block-start: 0.3em;
+  }
+
+  p:first-child {
+    margin-block-start: 0;
+  }
+}
+
+figure + * {
+  margin-block-start: 2em;
+}
+
+figure, img, iframe, video, youtube-lite {
+  display: block;
+  margin-block-start: 1em;
+}
+
+figcaption {
+  font-size: var(--fsize--1);
+  margin-block-start: 0.2em;
+}
+
+strong {
+  font-weight: var(--font-weight-bold);
+}
+
+sup, sub {
+  font-size: var(--fsize--2);
+}
+
+a:link, a:visited {
+  text-decoration: underline;
+  text-underline-offset: 0.1em;
+  color: var(--color-fore3);
+}
+
+a:hover, a:active, a:focus {
+  color: var(--color-fore1);
+}
+
+svg, use {
+  block-size: 1em;
+  inline-size: 1em;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke: currentColor;
+  fill: currentColor;
+  stroke-width: 0;
+}
+
+hr {
+  block-size: 1px;
+  background-color: var(--color-back2);
+  border: 0 none;
+}
+
+.print, .alt {
+  display: none;
+}
+
+static-search {
+
+  &, &::part(activate), svg {
+    inline-size: 1.5em;
+    block-size: auto;
+  }
+
+}

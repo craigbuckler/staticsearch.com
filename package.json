@@ -1,0 +1,40 @@
+{
+  "name": "staticsearch.com",
+  "version": "1.0.0",
+  "description": "StaticSearch website and documentation",
+  "keywords": [
+    "staticsearch",
+    "website"
+  ],
+  "homepage": "https://github.com/craigbuckler/staticsearch.com#readme",
+  "bugs": {
+    "url": "https://github.com/craigbuckler/staticsearch.com/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/craigbuckler/staticsearch.com.git"
+  },
+  "license": "MIT",
+  "author": "Craig Buckler",
+  "engines": {
+    "node": ">= 22.0.0"
+  },
+  "type": "module",
+  "main": "publican.config.js",
+  "scripts": {
+    "build": "node --env-file=.env.dev --env-file=.env.prod ./publican.config.js",
+    "start": "node --env-file=.env.dev ./publican.config.js"
+  },
+  "dependencies": {
+    "esbuild": "0.28.2",
+    "publican": "0.12.3",
+    "publican.lib": "0.1.3",
+    "staticsearch": "0.9.1"
+  },
+  "devDependencies": {
+    "livelocalhost": "1.2.7"
+  },
+  "allowScripts": {
+    "esbuild": true
+  }
+}

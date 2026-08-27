@@ -1,0 +1,9 @@
+/* in-page <nav-heading> menu web component */
+body:not(:has(nav-heading)),
+body:has(nav-heading:empty) {
+
+  button[popovertarget="pagecontents"] {
+    display: none;
+  }
+
+}

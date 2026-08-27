@@ -1,0 +1,191 @@
+body > header {
+
+  position: relative;
+  inset-block-start: 0;
+  inline-size: 100%;
+  z-index: 1;
+  view-transition-name: none;
+
+  & > nav {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 0.5em;
+    margin-inline: auto;
+  }
+
+  .logo span {
+    display: none;
+
+    @media (width > 30rem) {
+      display: inline-block;
+    }
+  }
+
+  svg {
+    inline-size: 1.5em;
+    block-size: 1.5em;
+  }
+
+  a:link, a:visited, svg, label {
+    font-weight: var(--font-weight-bold);
+    text-decoration: none;
+    color: var(--color-fore3);
+
+    .logo & {
+      font-size: var(--fsize-1);
+      font-weight: var(--font-weight-head);
+    }
+  }
+
+  a, svg, use, label {
+    &:hover, &:active, &:focus {
+      color: var(--color-fore1);
+    }
+  }
+
+  button {
+    appearance: none;
+    color: inherit;
+    background-color: transparent;
+    border: 0 none;
+    cursor: pointer;
+  }
+
+  ul, li {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  ul {
+    display: flex;
+    align-items: center;
+    gap: 0.6em;
+  }
+
+  ul, .share {
+    margin-inline-start: auto;
+  }
+
+  details {
+    position: relative;
+
+    &:open summary svg {
+      color: var(--color-fore1);
+    }
+  }
+
+  summary svg {
+    block-size: var(--header-height);
+  }
+
+  menu {
+    position: absolute;
+    inline-size: max-content;
+    max-block-size: calc(98vb - var(--header-height) - 1em);
+    inset-block-start: 100%;
+    inset-inline-end: 0;
+    padding-block: 0.5em;
+    background-color: var(--color-back1);
+    overflow-block: auto;
+    overscroll-behavior: contain;
+
+    li {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    a, strong {
+      display: block;
+      padding-inline: 1em;
+      padding-block: 0.3em;
+    }
+
+    svg {
+      inline-size: 1.2em;
+      block-size: 1.2em;
+    }
+
+    hr {
+      inline-size: calc(100% - 2em);
+      margin-block: 0.5em;
+      margin-inline: auto;
+      background-color: var(--color-back3);
+    }
+
+  }
+
+}
+
+static-search {
+
+  display: block;
+  visibility: hidden;
+  inline-size: 1.5em;
+  block-size: 1.5em;
+  pointer-events: none;
+  fill: var(--color-fore3);
+
+  &::part(activate) {
+    outline-color: var(--color-fore3);
+  }
+
+  &:defined {
+    visibility: visible;
+    pointer-events: all;
+  }
+
+  &:hover, &:focus, &:focus-within {
+    fill: var(--color-fore1);
+  }
+
+}
+
+.themeswitcher {
+
+  input {
+    position: absolute;
+    clip: rect(0 0 0 0);
+    inline-size: 1px;
+    block-size: 1px;
+    overflow: hidden;
+  }
+
+  label {
+    display: none;
+    padding-inline: 1em;
+    padding-block: 0.3em;
+    cursor: pointer;
+    pointer-events: none;
+    transition: opacity 0.3s linear;
+  }
+
+  input:checked + label {
+    display: block;
+    pointer-events: all;
+  }
+
+  svg:hover, svg:focus, svg:active {
+    stroke: var(--color-fore1);
+  }
+
+  &:focus-within:has(:focus-visible) label {
+    color: var(--color-fore1);
+  }
+
+}
+
+@media (height > 30rem) {
+
+  body > header {
+    position: fixed;
+    backdrop-filter: blur(8px);
+  }
+
+  main {
+    padding-block-start: var(--header-fix-height);
+  }
+
+}

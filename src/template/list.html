@@ -1,0 +1,22 @@
+${ include('_partials/htmlhead.html') }
+${ include('_partials/header.html') }
+
+<div id="pagegrid">
+
+  ${ data.directory === 'docs' ? `<nav id="menudir" popover>${ tacs.lib.nav.menuDir( tacs, 'docs', data.link, 1) }</nav>` : '' }
+
+  <main>
+
+    ${ data?.pagination &&
+      `<h1>${ tacs.lib.feed.escape( data.title ) }${ data.pagination.pageTotal > 1 ? `, page ${ tacs.lib.format.number( data.pagination.pageCurrent1 ) } of ${ tacs.lib.format.number( data.pagination.pageTotal ) }` : ''}</h1>`
+    }
+
+    ${ data.content }
+
+    ${ include('_partials/list.html') }
+
+  </main>
+
+</div>
+
+${ include('_partials/htmlfoot.html') }

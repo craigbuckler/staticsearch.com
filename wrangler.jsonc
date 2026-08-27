@@ -1,0 +1,27 @@
+/**
+ * Cloudflare wrangler configuration:
+ * https://developers.cloudflare.com/workers/wrangler/configuration/
+ */
+{
+  "name": "staticsearch.com",
+  "compatibility_date": "2026-08-20",
+  "workers_dev": false,
+  "build": {
+    "command": "npm run build"
+  },
+  "assets": {
+    // build
+    "directory": "./build/",
+    // 404 page (MPA rather than SPA)
+    "not_found_handling": "404-page"
+  },
+  "observability": {
+    "enabled": false
+  },
+  "routes": [
+    {
+      "pattern": "staticsearch.com",
+      "custom_domain": true
+    }
+  ]
+}

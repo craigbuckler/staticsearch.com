@@ -1,0 +1,21 @@
+@font-face {
+  font-family: 'Verdana Fallback';
+  src: local(Verdana);
+  size-adjust: 91%;
+  ascent-override: normal;
+  descent-override: normal;
+  line-gap-override: 30%;
+}
+
+@supports (font-variation-settings: normal) {
+
+  @font-face {
+    font-family: 'Manrope';
+    src: url('/media/fonts/manrope.woff2') format('woff2 supports variations'),
+         url('/media/fonts/manrope.woff2') format('woff2-variations');
+    font-display: swap;
+    font-style: normal;
+    font-weight: 200 800;
+  }
+
+}

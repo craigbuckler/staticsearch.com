@@ -1,0 +1,37 @@
+.logo {
+
+  font-weight: var(--font-weight-head);
+  letter-spacing: -0.09em;
+  line-height: 0.9;
+  margin: 0;
+  color: var(--color-fore5);
+
+  svg {
+    inline-size: 1.75em;
+    block-size: 1.75em;
+  }
+
+  svg, span {
+    display: inline-block;
+    vertical-align: middle;
+  }
+
+  svg, strong {
+    font-weight: inherit;
+    color: var(--color-fore3);
+  }
+
+  a:link, a:visited {
+
+    text-decoration: none;
+    color: var(--color-fore5);
+    svg, strong { color: var(--color-fore3); }
+
+  }
+
+  a:hover, a:active, a:focus {
+    color: var(--color-fore3);
+    svg, strong { color: var(--color-fore1); }
+  }
+
+}

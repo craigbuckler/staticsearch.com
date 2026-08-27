@@ -1,0 +1,17 @@
+${ include('_partials/htmlhead.html') }
+${ include('_partials/header.html') }
+
+<main>
+
+  <header>
+    ${ tacs.lib.nav.breadcrumb( tacs, data.link ) }
+    <h1>${ tacs.lib.feed.escape( data.title ) }</h1>
+  </header>
+
+  ${ data.content }
+
+</main>
+
+${ include('_partials/backnext.html') }
+
+${ include('_partials/htmlfoot.html') }

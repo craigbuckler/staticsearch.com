@@ -1,0 +1,363 @@
+---
+title: StaticSearch indexer
+menu: Indexer
+description: How to use and configure the StaticSearch indexer to index words in your static site.
+date: 2025-06-17
+modified: 2026-07-27
+priority: 0.8
+tags: StaticSearch, indexer
+---
+
+You must run the StaticSearch indexing process whenever your site content changes. You would typically run the indexer following a build as part of your site's deployment process.
+
+During indexing, StaticSearch extracts words from all the HTML files in a build directory (such as `./build/`) and creates a new directory (`./build/search/`) containing index data, JavaScript, and CSS files.
+
+
+## Installing StaticSearch
+
+You can run StaticSearch without installation:
+
+{{ terminal }}
+```bash
+npx staticsearch
+```
+
+You can also install the module globally:
+
+{{ terminal }}
+```bash
+npm install staticsearch -g
+```
+
+then run using:
+
+{{ terminal }}
+```bash
+staticsearch
+```
+
+This tutorial shows global `staticsearch` commands, but you can still prepend `npx` if necessary.
+
+
+## StaticSearch help
+
+View StaticSearch command line help using:
+
+{{ terminal }}
+```bash
+staticsearch --help
+```
+
+Additional help options are available from the CLI:
+
+|CLI|description|
+|-|-|
+|`-v`, `--version`|show application version|
+|`-?`, `--help`|show CLI help|
+|`-E`, `--helpenv`|show .env/environment variable help|
+|`-A`, `--helpapi`|show Node.js API help|
+
+
+## Using the StaticSearch Node.js API
+
+You can configure and run StaticSearch from any Node.js project. This is useful when you want to index a site as part of your build process, perhaps within a [Publican `publican.config.js` configuration file](__/docs/setup/configuration/).
+
+To use StaticSearch, install it as a dependency:
+
+{{ terminal }}
+```bash
+npm install staticsearch
+```
+
+then import the module, set configuration options, and run the `.index()` method in your JavaScript code:
+
+{{ `index.js` example }}
+```js
+// example search index
+import { staticsearch } from 'staticsearch';
+
+// configuration
+staticsearch.buildDir = './mysite/';
+staticsearch.searchDir = './mysite/index/';
+staticsearch.buildRoot = './blog/';
+staticsearch.wordWeight.title = 20;
+
+// run indexer
+await staticsearch.index();
+```
+
+When an option is not explicitly set, StaticSearch falls back to an environment variable, then the default value.
+
+Run your application as normal to index your site, e.g. `node index.js`
+
+
+## Indexer configuration
+
+StaticSearch can index most sites without configuration but options can be set as CLI arguments, environment variables, or as [Node.js API properties](#using-the-staticsearch-nodejs-api).
+
+
+### Load environment files
+
+You can set StaticSearch options using environment variables, e.g.
+
+{{ terminal }}
+```bash
+export BUILD_DIR=./mysite/
+staticsearch
+```
+
+You can also define variables in a file, e.g.
+
+{{ example `.env` }}
+```ini
+# StaticSearch environment variables
+BUILD_DIR=./mysite/
+SEARCH_DIR=./mysite/index/
+BUILD_ROOT=/blog/
+```
+
+Then import this file on the command line:
+
+{{ terminal }}
+```bash
+staticsearch --env .env
+```
+
+Note that CLI arguments take precedence over environment variables.
+
+
+### File indexing options
+
+The following options control how StaticSearch parses and indexes HTML files:
+
+|CLI|ENV|API|description|
+|-|-|-|-|
+|`-b`, `--builddir` | `BUILD_DIR` | `.buildDir`|static site directory (`./build/`)|
+|`-s`, `--searchdir` | `SEARCH_DIR` | `.searchDir`|search index data directory (`./build/search/`)|
+|`-d`, `--domain` | `SITE_DOMAIN` | `.siteDomain`|site domain (`http://localhost`)|
+|`-r`, `--root` | `BUILD_ROOT` | `.buildRoot`|site root path (`/`)|
+|`-x`, `--indexext` | `SITE_INDEXEXT` | `.siteIndexExt` |indexed file extension contains (`.htm`)|
+|`-i`, `--indexfile` | `SITE_INDEXFILE` | `.siteIndexFile`|default index file (`index.html`)|
+|`-f`, `--ignorerobotfile` | `SITE_PARSEROBOTSFILE` | `.siteParseRobotsFile`|parse robot.txt Disallows (`true`)|
+|`-m`, `--ignorerobotmeta` | `SITE_PARSEROBOTSMETA` | `.siteParseRobotsMeta`|parse robot meta noindex (`true`)|
+
+The **build directory** (`--builddir` | `BUILD_DIR` | `.buildDir`) is an absolute or relative path to the directory where you built your static site, e.g. `./build/`.
+
+The **search directory** (`--searchdir` | `SEARCH_DIR` | `.searchDir`) is an absolute or relative path to the directory where you want StaticSearch's code and index files generated. You can use any path, but it should normally be inside your build directory, e.g. `./build/search/`. If you don't define a search directory, it defaults to a `search` subdirectory of the build directory.
+
+If your pages use links with fully qualified URLs such as `https://mysite.com/path/`, you should set the **domain** (`--domain` | `SITE_DOMAIN` | `.siteDomain`) so StaticSearch can identify internal links.
+
+StaticSearch presumes the **web root path** is `/` -- so the file `./build/index.html` is your home page. You can set it to another path, such as `/blog/` (`--root` | `BUILD_ROOT` | `.buildRoot`). The file at `./build/index.html` is then presumed to have the URL path `/blog/index.html`.
+
+StaticSearch **indexes HTML files** with an extension containing `.htm` (so `.htm` and `.html` are valid). You can change the extension match (`--indexext` | `SITE_INDEXEXT` | `.siteIndexExt`), e.g. `.php` for PHP files or `.` for any file with an extension.
+
+:::aside
+
+StaticSearch always attempts to parse HTML content irrespective of the file extension. You *may* be able to index `.php` or similar files if they contain HTML with chunks of server code in [document sections](#document-indexing-options) that are not indexed.
+
+:::/aside
+
+StaticSearch presumes the **HTML index file** used as the default for directory paths is `index.html`. You can change this to another filename (`--indexfile` | `SITE_INDEXFILE` | `.siteIndexFile`), e.g. `default.htm`.
+
+StaticSearch parses the **`robots.txt` file** in the root of the build directory, e.g. omit any file in the `/secret/` and `/personal/` directories:
+
+{{ example `robots.txt` }}
+```txt
+User-agent: *
+Disallow: /secret/
+
+User-agent: staticsearch
+Disallow: /personal/
+```
+
+You can disable `robots.txt` parsing with `--ignorerobotfile` | `SITE_PARSEROBOTSFILE=false` | `.siteParseRobotsFile=false`{language=js}.
+
+StaticSearch parses **HTML `meta` tags**. A page is not indexed when it includes `noindex` in the `content` attribute of a `robots` or `staticsearch` meta tag:
+
+{{ example `index.html` }}
+```html
+<meta name="robots" content="noindex">
+<!-- OR -->
+<meta name="staticsearch" content="noindex">
+```
+
+You can disable meta tag parsing with `--ignorerobotmeta` | `SITE_PARSEROBOTSMETA=false` | `.siteParseRobotsMeta=false`{language=js}.
+
+**Example**: index HTML files in the `./mysite/` directory, ignore `robots.txt` restrictions, and write search index files to `./mysite/search/`:
+
+{{ terminal }}
+```bash
+staticsearch --builddir ./mysite/ --ignorerobotfile
+```
+
+
+### Document indexing options
+
+StaticSearch attempts to locate your page's primary content. You would not normally want to index text in headers, footers, and navigation that is repeated on every page. The indexer checks for content in:
+
+1. the HTML `<main>` element, but it ignores child content in `<nav>` and `<menu>` elements.
+
+1. when there's no `<main>` element, the indexer uses the `<body>` element, but ignores child content in `<header>`, `<footer>`, `<nav>`, and `<menu>` elements (or elements with an ID or class containing `header`, `footer`, etc).
+
+If this is not suitable, you can set alternative elements using CSS selectors to locate your main content:
+
+|CLI|ENV|API|description|
+|-|-|-|-|
+|`-D`, `--dom` | `PAGE_DOMSELECTORS` | `.pageDOMSelectors`| nodes to include |
+|`-X`, `--domx` | `PAGE_DOMEXCLUDE` | `.pageDOMExclude`| nodes to exclude |
+
+Specify the location of your main content by setting `--dom` | `PAGE_DOMSELECTORS` | `.pageDOMSelectors` to a comma-delimited list of CSS selectors, e.g. `'article.primary, .secondary, aside'`{language=css}.
+
+Then **exclude** any nodes within the main content by setting `--domx` | `PAGE_DOMEXCLUDE` | `.pageDOMExclude` to a comma-delimited list of CSS (child) selectors e.g. `'nav, menu, .private'`{language=css}.
+
+**Example**: index content in `#main`{language=css} and `.secondary`{language=css} elements but exclude all `<nav>`{language=html}, and `<div class="related">`{language=html} elements within them:
+
+{{ terminal }}
+```bash
+npx staticsearch --dom '#main,.secondary' --domx 'nav,div.related'
+```
+
+Notes:
+
+1. Pages without `#main`{language=css} or `.secondary`{language=css} elements are **not** indexed.
+
+1. Be careful not to index the same elements more than once. Content inside a `.secondary`{language=css} block that's **within** a `#main`{language=css} block is indexed twice which affects relevancy scores.
+
+1. Ensure excluded nodes are valid **child** selectors. Consider this example:
+
+   ```bash
+   npx staticsearch --dom '.main' --domx 'body nav'
+   ```
+
+   It would **not** exclude the `<nav>` in the following HTML because it couldn't find a child `body`{language=css} *inside* the `.main`{language=css} element.
+
+
+### Word indexing options
+
+The following options control word indexing:
+
+|CLI|ENV|API|description|
+|-|-|-|-|
+|`-l`, `--language` | `LANGUAGE` | `.language` |language (`en`)|
+|`-c`, `--wordcrop` | `WORDCROP` | `.wordCrop` |crop word letters (`7`)|
+|`-S`, `--stopwords` | `STOPWORDS` | `.stopWords` |comma-separated list of stop words|
+|`-W`, `--ignorestopdefault` | `STOPWORDS_DEFAULT` | `.stopWordsDefault` |use language default stop words (`true`)|
+|`--weightlink` | `WEIGHT_LINK` | `.wordWeight.link` |word weight for inbound links (`5`)|
+|`--weighttitle` | `WEIGHT_TITLE` | `.wordWeight.title` |word weight for main title (`10`)|
+|`--weightdesc` | `WEIGHT_DESCRIPTION` | `.wordWeight.description` |word weight for description (`8`)|
+|`--weightkeywords` | `WEIGHT_KEYWORDS` | `.wordWeight.keywords` |word weight for `meta` keywords (`1`)|
+|`--weighth2` | `WEIGHT_H2` | `.wordWeight.h2` |word weight for H2 headings (`6`)|
+|`--weighth3` | `WEIGHT_H3` | `.wordWeight.h3` |word weight for H3 headings (`5`)|
+|`--weighth4` | `WEIGHT_H4` | `.wordWeight.h4` |word weight for H4 headings (`4`)|
+|`--weighth5` | `WEIGHT_H5` | `.wordWeight.h5` |word weight for H5 headings (`3`)|
+|`--weighth6` | `WEIGHT_H6` | `.wordWeight.h6` |word weight for H6 headings (`2`)|
+|`--weightemphasis` | `WEIGHT_EMPHASIS` | `.wordWeight.emphasis` |word weight for bold and italic (`2`)|
+|`--weightalt` | `WEIGHT_ALT` | `.wordWeight.alt` |word weight for alt tags (`1`)|
+|`--weightcontent` | `WEIGHT_CONTENT` | `.wordWeight.content` |word weight for content (`1`)|
+
+The default `--language` | `LANGUAGE` | `.language` is English (`en`) which provides [word stemming and stop word lists](__/tools/staticsearch/how-it-works/#a-3-process-words) to reduce the size of the index and provide *fuzzier* searching.
+
+StaticSearch automatically removes common stop words considered insignificant to the meaning of text -- such as "and", "the", and "but" in English. It includes stop words courtesy of [Stopwords ISO](https://github.com/stopwords-iso):
+
+* Afrikaans (`af`)
+* Croatian (`hr`)
+* Czech (`cs`)
+* Danish (`da`)
+* Dutch (`nl`)
+* English (`en`)
+* Estonian (`et`)
+* Finnish (`fi`)
+* French (`fr`)
+* German (`de`)
+* Hungarian (`hu`)
+* Irish (`ga`)
+* Italian (`it`)
+* Latvian (`lv`)
+* Lithuanian (`lt`)
+* Malay (`ms`)
+* Norwegian (`no`)
+* Polish (`pl`)
+* Portuguese (`pt`)
+* Romanian (`ro`)
+* Slovak (`sk`)
+* Somali (`so`)
+* Spanish (`es`)
+* Swahili (`sw`)
+* Swedish (`sv`)
+* Turkish (`tr`)
+* Zulu (`zu`)
+
+In some cases, such as smaller sites, you may wish to omit the default stop words using `--ignorestopdefault` | `STOPWORDS_DEFAULT` | `.stopWordsDefault`.
+
+You can set custom stop words using `--stopwords` | `STOPWORDS` | `.stopWords`. For example, a site about "Acme widgets" probably mentions them on every page. The words are of little practical use in the search index so you could set the stop words `'acme,widget'`.
+
+By default, `--wordcrop` | `WORDCROP` | `.wordCrop` is `7`: only the first 7 letters of any word are considered important. Therefore, the word "consider", "considered", and "considering" are effectively identical (and indexed as `conside`). You can change this limit if necessary.
+
+The `--weight` | `WEIGHT_` | `.wordWeight` values define scores allocated to a word according to its location in a page. The defaults:
+
+| word location | score |
+|-|-|
+| title / h1 heading | 10 |
+| description | 8 |
+| `<meta name="keywords" content="...">` | 1 |
+| h2 heading | 6 |
+| h3 heading | 5 |
+| h4 heading | 4 |
+| h5 heading | 3 |
+| h6 heading | 2 |
+| emphasis (bold/italic) | 2 |
+| main content | 1 |
+| alt tags | 1 |
+| inbound link | 5 |
+
+Consider a page with the word *"static"* in the title, an `<h2>`{language=html} heading, and an `<em>`{language=html}. The page scores 18 (10 + 6 + 2) for *"static"*, so it will appear above pages scoring 17 or less.
+
+Any other page linking to it using the word *"static"* adds a further 5 points to the score.
+
+::: aside
+
+Lots of inbound links can override scores allocated by titles and text. Menus link to many pages, so the indexer [excludes `<nav>` and `<menu>` elements by default](#document-indexing-options).
+
+::: /aside
+
+**Example**: do not index words defined in `<meta name="keywords" content="...">`{language=html} and `<img alt="...">`{language=html}:
+
+{{ terminal }}
+```bash
+staticsearch --weightkeywords 0 --weightalt 0
+```
+
+**Example**: change the language to Spanish, crop words to 6 characters, and set the title score to 20:
+
+{{ terminal }}
+```bash
+staticsearch --language es --wordcrop 6 --weighttitle 20
+```
+
+
+### Logging options
+
+The following option controls logging verbosity:
+
+|CLI|ENV|API|description|
+|-|-|-|-|
+|`-L`, `--loglevel` | `LOGLEVEL` | `.logLevel` | logging verbosity (2)|
+
+Set:
+
+* `0`: fatal errors only
+* `1`: errors and status messages
+* `2`: errors, status, and warning messages (the default)
+
+
+## Next steps
+
+After indexing your site for the first time, you can add StaticSearch search functionality using any of these options:
+
+1. a [single script tag](__/tools/staticsearch/staticsearch-here/) -- add search using a single HTML `<script>`{language=html} tag
+
+1. a [web component](__/tools/staticsearch/search-web-component/) -- add search using an HTML `<static-search>`{language=html} tag
+
+1. a [bind module](__/tools/staticsearch/search-bind-module/) -- add search by *binding* HTML elements to search functionality using HTML or JavaScript
+
+1. a [search API](__/tools/staticsearch/search-api/) -- create your own search UI using the JavaScript API.

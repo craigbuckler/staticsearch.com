@@ -1,0 +1,5 @@
+---
+slug: _redirects
+TODO: Cloudflare HTTP redirects - short links and old URL redirects
+---
+/not-exists/* / 301

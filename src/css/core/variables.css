@@ -1,0 +1,105 @@
+/* default variables */
+:root {
+
+  /* fonts */
+  --font-body: Manrope, "Verdana Fallback", sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+
+  --font-head: --var(font-body);
+  --font-weight-normal: 200;
+  --font-weight-bold: 600;
+  --font-weight-head: 800;
+
+  --fsize--2: clamp(0.6944rem, 0.6906rem + 0.0172vi, 0.7035rem);
+  --fsize--1: clamp(0.8333rem, 0.7886rem + 0.1989vi, 0.9377rem);
+  --fsize-0: clamp(1rem, 0.8929rem + 0.4762vi, 1.25rem);
+  --fsize-1: clamp(1.2rem, 1.0002rem + 0.8881vi, 1.6663rem);
+  --fsize-2: clamp(1.44rem, 1.1052rem + 1.4878vi, 2.2211rem);
+  --fsize-3: clamp(1.728rem, 1.1997rem + 2.3481vi, 2.9607rem);
+  --fsize-4: clamp(2.0736rem, 1.2709rem + 3.5677vi, 3.9467rem);
+  --fsize-5: clamp(2.4883rem, 1.3001rem + 5.2811vi, 5.2609rem);
+
+  /* layout */
+  --header-height: 5ch;
+  --layout-width: 58rem;
+  --layout-margin: min(4vw, 4ch);
+  --main-width: min(var(--layout-width), 100% - (2 * var(--layout-margin)));
+  --header-fix-height: calc(var(--header-height) + 1em);
+  --imagexpand-pad: 1vmin;
+
+  /* colors */
+  --c0: oklch(0.155 0.013 270.4);
+  --c1: oklch(0.191 0.017 264.0);
+  --c2: oklch(0.249 0.022 254.2);
+  --c3: oklch(0.309 0.023 264.1);
+  --c4: oklch(0.535 0.040 272.7);
+  --c5: oklch(0.963 0.013 115.8);
+  --c6: oklch(0.835 0.013 266.7);
+  --c7: oklch(0.710 0.030 270.3);
+  --c8: oklch(0.604 0.039 274.6);
+  --c9: oklch(0.500 0.039 274.6);
+
+  --color-back1: light-dark( var(--c5), var(--c0) );
+  --color-back2: light-dark( var(--c6), var(--c1) );
+  --color-back3: light-dark( var(--c7), var(--c2) );
+  --color-back4: light-dark( var(--c8), var(--c3) );
+  --color-back5: light-dark( var(--c9), var(--c4) );
+
+  --color-fore1: light-dark( var(--c0), var(--c5) );
+  --color-fore2: light-dark( var(--c1), var(--c6) );
+  --color-fore3: light-dark( var(--c2), var(--c7) );
+  --color-fore4: light-dark( var(--c3), var(--c8) );
+  --color-fore5: light-dark( var(--c4), var(--c9) );
+
+  /* code theme */
+  --color-code-fore:      var(--color-fore2);
+  --color-code-back:      var(--color-back2);
+  --color-code-border:    light-dark(#dddddd, #393d41);
+  --color-code-line:      light-dark(#999999, #555555);
+  --color-code-comment:   light-dark(#008000, #8c8c8c);
+  --color-code-punc:      light-dark(#8888ff, #c5c8c6);
+  --color-code-keyword:   light-dark(#220099, #96cbfe);
+  --color-code-class:     light-dark(#0000ff, #ffffb6);
+  --color-code-const:     light-dark(#0066ff, #99cc99);
+  --color-code-symbol:    light-dark(#36acaa, #f92672);
+  --color-code-number:    light-dark(#36acaa, #ff73fd);
+  --color-code-string:    light-dark(#a31515, #a8ff60);
+  --color-code-var:       light-dark(#c6c5fe, #c6c5fe);
+  --color-code-op:        light-dark(#393a34, #ededed);
+  --color-code-attr:      light-dark(#4444ff, #f9ee98);
+  --color-code-function:  light-dark(#393a34, #dad085);
+  --color-code-regex:     light-dark(#ff0000, #e9c062);
+  --color-code-important: light-dark(#ee9900, #fd971f);
+
+  /* static-search styles */
+  --staticsearch-fontsize: var(--fsize-0);
+
+  --staticsearch-color-back: var(--color-back3);
+  --staticsearch-color-border: var(--color-back2);
+
+  --staticsearch-color-fore0: var(--color-fore1);
+  --staticsearch-color-fore1: var(--color-fore2);
+  --staticsearch-color-fore2: var(--color-fore3);
+
+  --staticsearch-color-link: var(--color-fore1);
+  --staticsearch-color-visited: var(--color-fore1);
+
+  --staticsearch-color-shadow: rgba(0,0,0,0.5);
+  --staticsearch-color-backdrop: rgba(0,0,0,0.6);
+  --staticsearch-backdrop-blur: 5px;
+
+}
+
+html, html[data-theme="light"], html:has(input[name="themeswitcher"][value="light"]:checked) {
+	color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+	html {
+		color-scheme: dark;
+	}
+}
+
+html[data-theme="dark"], html:has(input[name="themeswitcher"][value="dark"]:checked) {
+	color-scheme: dark;
+}

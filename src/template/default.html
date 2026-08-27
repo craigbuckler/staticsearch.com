@@ -1,0 +1,24 @@
+${ include('_partials/htmlhead.html') }
+${ include('_partials/header.html') }
+
+<div id="pagegrid">
+
+  ${ data.directory === 'docs' ? `<nav id="menudir" popover>${ tacs.lib.nav.menuDir( tacs, 'docs', data.link, 1) }</nav>` : '' }
+
+  <main>
+
+    ${ include('_partials/title.html') }
+
+    ${ data.content }
+
+  </main>
+
+  <nav-heading id="pagecontents" popover></nav-heading>
+
+  ${ include('_partials/backnext.html') }
+
+  ${ include('_partials/related.html') }
+
+</div>
+
+${ include('_partials/htmlfoot.html') }
