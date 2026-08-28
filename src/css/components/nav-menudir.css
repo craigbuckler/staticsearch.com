@@ -1,1 +1,8 @@
 /* directory menu */
+body:not(:has(#menudir)) {
+
+  button[popovertarget="menudir"] {
+    display: none;
+  }
+
+}

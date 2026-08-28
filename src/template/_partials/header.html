@@ -1,36 +1,40 @@
-<header><nav>
+<header>
 
-  <!-- menu toggle -->
-  <button popovertarget="menudir" popovertargetaction="toggle" title="menu">
-    <svg><use xlink:href="#svg-menu"></use></svg>
-  </button>
+  <nav>
 
-  <!-- logo -->
-  <p class="logo"><a href="__/">
-    <svg><use xlink:href="#svg-logo"></use></svg>
-    <span>Static<strong>Search</strong></span>
-  </a></p>
+    <!-- menu toggle -->
+    <button popovertarget="menudir" popovertargetaction="toggle" title="menu">
+      <svg><use xlink:href="#svg-menu"></use></svg>
+    </button>
 
-  <!-- primary links -->
-  <ul>
-    <li><a href="__/docs/" title="StaticSearch documentation">Docs</a></li>
-    <li><a href="__/blog/" title="StaticSearch article blog">Blog</a></li>
-  </ul>
+    <!-- logo -->
+    <p class="logo"><a href="__/">
+      <svg><use xlink:href="#svg-logo"></use></svg>
+      <span>Static<strong>Search</strong></span>
+    </a></p>
 
-  <!-- search -->
-  <static-search label="search StaticSearch.com" title="search Ctrl+K">
-    <a href="https://duckduckgo.com/?q=search%20site:staticsearch.com"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m18 16.6 4.3 4.3-1.4 1.4-4.3-4.3a9 9 0 1 1 1.4-1.4m-2-.7A7 7 0 0 0 11 4a7 7 0 1 0 4.9 12z"/></svg></a>
-  </static-search>
+    <!-- primary links -->
+    <ul>
+      <li><a href="__/docs/" title="StaticSearch documentation">Docs</a></li>
+      <li><a href="__/blog/" title="StaticSearch article blog">Blog</a></li>
+    </ul>
 
-  <!-- share menu -->
-  ${ include('_partials/menu-share.html') }
+    <!-- search -->
+    <static-search label="search StaticSearch.com" title="search Ctrl+K">
+      <a href="https://duckduckgo.com/?q=search%20site:staticsearch.com"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m18 16.6 4.3 4.3-1.4 1.4-4.3-4.3a9 9 0 1 1 1.4-1.4m-2-.7A7 7 0 0 0 11 4a7 7 0 1 0 4.9 12z"/></svg></a>
+    </static-search>
 
-  <!-- configuration -->
-  ${ include('_partials/menu-config.html') }
+    <!-- share menu -->
+    ${ include('_partials/menu-share.html') }
 
-  <!-- contents toggle -->
-  <button popovertarget="pagecontents" popovertargetaction="toggle" title="page sections">
-    <svg><use xlink:href="#svg-toc"></use></svg>
-  </button>
+    <!-- configuration -->
+    ${ include('_partials/menu-config.html') }
 
-</nav></header>
+    <!-- contents toggle -->
+    <button popovertarget="pagecontents" popovertargetaction="toggle" title="page sections">
+      <svg><use xlink:href="#svg-toc"></use></svg>
+    </button>
+
+  </nav>
+
+</header>

@@ -21,11 +21,12 @@
 
   /* layout */
   --header-height: 5ch;
-  --layout-width: 58rem;
-  --layout-margin: min(4vw, 4ch);
-  --main-width: min(var(--layout-width), 100% - (2 * var(--layout-margin)));
+  --main-width: 65ch;
+  --main-width-max: minmax(300px, var(--main-width));
+  --side-width: 15ch;
+  --margin-width: min(6vi, 6ch);
+  --total-width: calc( var(--main-width) + (2 * (var(--side-width) + var(--margin-width))) );
   --header-fix-height: calc(var(--header-height) + 1em);
-  --imagexpand-pad: 1vmin;
 
   /* colors */
   --c0: oklch(0.155 0.013 270.4);

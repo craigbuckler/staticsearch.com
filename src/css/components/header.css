@@ -1,4 +1,4 @@
-body > header {
+header {
 
   position: relative;
   inset-block-start: 0;
@@ -7,6 +7,7 @@ body > header {
   view-transition-name: none;
 
   & > nav {
+    inline-size: 100%;
     display: flex;
     align-items: center;
     justify-content: flex-start;
@@ -179,13 +180,9 @@ static-search {
 
 @media (height > 30rem) {
 
-  body > header {
-    position: fixed;
+  header {
+    position: sticky;
     backdrop-filter: blur(8px);
-  }
-
-  main {
-    padding-block-start: var(--header-fix-height);
   }
 
 }

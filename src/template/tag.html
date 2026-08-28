@@ -1,18 +1,23 @@
 ${ include('_partials/htmlhead.html') }
-${ include('_partials/header.html') }
 
-<main>
+<div id="pagegrid">
 
-  ${ data?.pagination &&
-    `<h1>${ tacs.lib.format.number( data.childPageTotal ) } ${ tacs.lib.feed.escape( data.title ) }${ data.pagination.pageTotal > 1 ? `, page ${ tacs.lib.format.number( data.pagination.pageCurrent1 ) } of ${ tacs.lib.format.number( data.pagination.pageTotal ) }` : ''}</h1>`
-  }
+  ${ include('_partials/header.html') }
 
-  ${ include('_partials/list.html') }
+  <main>
 
-  <h2>All post tags</h2>
+    ${ data?.pagination &&
+      `<h1>${ tacs.lib.format.number( data.childPageTotal ) } ${ tacs.lib.feed.escape( data.title ) }${ data.pagination.pageTotal > 1 ? `, page ${ tacs.lib.format.number( data.pagination.pageCurrent1 ) } of ${ tacs.lib.format.number( data.pagination.pageTotal ) }` : ''}</h1>`
+    }
 
-  ${ tacs.lib.nav.tagList(tacs) }
+    ${ include('_partials/list.html') }
 
-</main>
+    <h2>All post tags</h2>
+
+    ${ tacs.lib.nav.tagList(tacs) }
+
+  </main>
+
+</div>
 
 ${ include('_partials/htmlfoot.html') }

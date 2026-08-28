@@ -1,17 +1,22 @@
 ${ include('_partials/htmlhead.html') }
-${ include('_partials/header.html') }
 
-<main>
+<div id="pagegrid">
 
-  <header>
-    ${ tacs.lib.nav.breadcrumb( tacs, data.link ) }
-    <h1>${ tacs.lib.feed.escape( data.title ) }</h1>
-  </header>
+  ${ include('_partials/header.html') }
 
-  ${ data.content }
+  <main>
 
-</main>
+    <header>
+      ${ tacs.lib.nav.breadcrumb( tacs, data.link ) }
+      <h1>${ tacs.lib.feed.escape( data.title ) }</h1>
+    </header>
 
-${ include('_partials/backnext.html') }
+    ${ data.content }
+
+  </main>
+
+  ${ include('_partials/backnext.html') }
+
+</div>
 
 ${ include('_partials/htmlfoot.html') }

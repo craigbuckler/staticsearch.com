@@ -1,12 +1,17 @@
 ${ include('_partials/htmlhead.html') }
-${ include('_partials/header.html') }
 
-<main>
+<div id="pagegrid">
 
-  ${ data.content }
+  ${ include('_partials/header.html') }
 
-</main>
+  <main>
 
-${ include('_partials/pinned.html') }
+    ${ data.content }
+
+  </main>
+
+  ${ include('_partials/pinned.html') }
+
+</div>
 
 ${ include('_partials/htmlfoot.html') }
