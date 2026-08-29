@@ -8,50 +8,7 @@
 
   display: grid;
   column-gap: var(--margin-width);
-  grid-template-columns: 1fr var(--main-width-max) 1fr;
-  grid-template-areas:
-    "head head head"
-    "mstr main mend"
-    "mstr navb mend"
-    "mstr rela mend"
-    "foot foot foot";
-
-  @media (width > 50rem) {
-
-    grid-template-columns: 1fr var(--side-width) var(--main-width-max) 1fr;
-    grid-template-areas:
-      "head head head head"
-      "nav1 nav1 main mend"
-      "nav1 nav1 navb mend"
-      "nav1 nav1 rela mend"
-      "foot foot foot foot";
-
-    button[popovertarget="menudir"] {
-      display: none;
-    }
-
-    #menudir {
-      display: block grid;
-      position: static;
-      grid-area: nav1;
-      padding: 0;
-      margin: 0;
-      width: auto;
-      height: auto;
-      border: 0 none;
-      background-color: #f002;
-
-      menu {
-        display: block;
-        position: fixed;
-      }
-    }
-
-  }
-
-  @media (width > 80rem) {
-
-    grid-template-columns: 1fr var(--side-width) var(--main-width-max) var(--side-width) 1fr;
+  grid-template-columns: 1fr 0 var(--main-width-max) 0 1fr;
     grid-template-areas:
       "head head head head head"
       "nav1 nav1 main nav2 nav2"
@@ -59,50 +16,92 @@
       "nav1 nav1 rela nav2 nav2"
       "foot foot foot foot foot";
 
-    button[popovertarget="pagecontents"] {
+  @media (width > 100ch) {
+
+    grid-template-columns: 1fr var(--side-width) var(--main-width-max) 0 1fr;
+
+    button[popovertarget="menudir"] {
       display: none;
     }
 
-    nav-heading {
-      display: block grid;
-      position: static;
-      grid-area: nav2;
-      padding: 0;
+    #menudir {
+      display: block;
+      position: relative;
+      grid-area: nav1;
+      inline-size: auto;
+      block-size: auto;
+      padding: 1px 0;
       margin: 0;
-      width: auto;
-      height: auto;
       border: 0 none;
-      background-color: #00f2;
+      background-color: #f002;
 
-      nav {
-        display: block;
+      menu {
         position: fixed;
+        inline-size: 20ch;
+        block-size: calc(100% - var(--header-fix-height));
+        overflow: auto;
       }
     }
 
   }
 
-}
+  @media (width > 130ch) {
 
-header {
-  grid-area: head;
-  display: grid;
-  grid-template-columns: subgrid;
+    grid-template-columns: 1fr var(--side-width) var(--main-width-max) var(--side-width) 1fr;
 
-  > nav {
-    grid-column: 2 / -2;
+    button[popovertarget="pagecontents"] {
+      display: none;
+    }
+
+    nav-heading {
+      display: block;
+      position: relative;
+      grid-area: nav2;
+      inline-size: auto;
+      block-size: auto;
+      padding: 1px 0;
+      margin: 0;
+      border: 0 none;
+      background-color: #00f2;
+
+      nav {
+        position: fixed;
+        inline-size: 20ch;
+        block-size: calc(100% - var(--header-fix-height));
+        overflow: auto;
+      }
+    }
+
   }
 
-}
+  & > header, & > footer {
 
-main {
-  grid-area: main;
-}
+    grid-area: head;
+    display: grid;
+    grid-template-columns: subgrid;
+    z-index: 1;
 
-nav.backnext {
-  grid-area: navb;
-}
+    > nav {
+      grid-column: 2 / -2;
+    }
 
-aside {
-  grid-area: rela;
+  }
+
+  & > footer {
+    grid-area: foot;
+    background-color: #000;
+  }
+
+  & > main {
+    grid-area: main;
+  }
+
+  & > nav.backnext {
+    grid-area: navb;
+  }
+
+  & > aside {
+    grid-area: rela;
+  }
+
 }
