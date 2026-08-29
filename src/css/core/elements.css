@@ -4,7 +4,7 @@ body {
   font-weight: var(--font-weight-normal);
   color: var(--color-fore1);
   accent-color: var(--color-back5);
-  background-color: var(--color-back1);
+  background-color: var(--color-back2);
 }
 
 h1, h2, h3 {

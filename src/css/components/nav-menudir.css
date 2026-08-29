@@ -6,3 +6,58 @@ body:not(:has(#menudir)) {
   }
 
 }
+
+#menudir {
+
+  position: fixed;
+  inline-size: min(var(--side-width), 95vi);
+  block-size: auto;
+  inset: var(--header-height) auto 0 0;
+  border: 0 none;
+  background-color: var(--color-sidebar);
+  overflow-block: auto;
+  overscroll-behavior: contain;
+  transform: translateX(-100%);
+  transition: transform 0.2s ease-in-out, display 0.2s allow-discrete;
+
+  &:popover-open {
+    transform: none;
+
+    @starting-style {
+      transform: translateX(-100%);
+    }
+
+  }
+
+}
+
+/* menu always shown */
+@media (width > 100ch) {
+
+  #pagegrid {
+    --menudir-width: var(--side-width);
+  }
+
+  button[popovertarget="menudir"] {
+    display: none;
+  }
+
+  #menudir {
+    display: block;
+    position: relative;
+    inset: 0;
+    inline-size: auto;
+    block-size: auto;
+    transform: none;
+    overscroll-behavior: auto;
+
+    & > menu {
+      position: fixed;
+      inline-size: 20ch;
+      block-size: calc(100% - var(--header-fix-height));
+      overflow: auto;
+    }
+
+  }
+
+}

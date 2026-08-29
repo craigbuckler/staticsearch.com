@@ -23,8 +23,8 @@
   --header-height: 5ch;
   --main-width: 65ch;
   --main-width-max: minmax(300px, var(--main-width));
-  --side-width: 15ch;
-  --margin-width: min(6vi, 6ch);
+  --side-width: 20ch;
+  --margin-width: min(4vi, 4ch);
   --total-width: calc( var(--main-width) + (2 * (var(--side-width) + var(--margin-width))) );
   --header-fix-height: calc(var(--header-height) + 1em);
 
@@ -51,6 +51,8 @@
   --color-fore3: light-dark( var(--c2), var(--c7) );
   --color-fore4: light-dark( var(--c3), var(--c8) );
   --color-fore5: light-dark( var(--c4), var(--c9) );
+
+  --color-sidebar: var(--color-back3);
 
   /* code theme */
   --color-code-fore:      var(--color-fore2);

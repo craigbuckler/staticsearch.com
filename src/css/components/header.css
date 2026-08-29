@@ -27,21 +27,25 @@
     block-size: 1.5em;
   }
 
-  a:link, a:visited, svg, label {
-    font-weight: var(--font-weight-bold);
-    text-decoration: none;
-    color: var(--color-fore3);
-
-    .logo & {
-      font-size: var(--fsize-1);
-      font-weight: var(--font-weight-head);
-    }
+  .logo {
+    font-size: var(--fsize-1);
+    font-weight: var(--font-weight-head);
   }
 
-  a, svg, use, label {
-    &:hover, &:active, &:focus {
-      color: var(--color-fore1);
+  > nav > *:not(.logo) {
+
+    a:link, a:visited, svg, label {
+      font-weight: var(--font-weight-bold);
+      text-decoration: none;
+      color: var(--color-fore3);
     }
+
+    a, svg, use, label {
+      &:hover, &:active, &:focus {
+        color: var(--color-fore1);
+      }
+    }
+
   }
 
   button {

@@ -4,75 +4,23 @@
   /*
     TODO: format and size sidebars (too small?) Move into separate CSS
     TODO: ensure all meta grid areas are added as necessary
+    TODO: fix issue where browser is enlarged when popover is open (close all on resize?)
   */
 
+  --menudir-width: 0;
+  --navhead-width: 0;
+
   display: grid;
+
+  grid-template-areas:
+    "head head head head head"
+    "nav1 nav1 main nav2 nav2"
+    "nav1 nav1 navb nav2 nav2"
+    "nav1 nav1 rela nav2 nav2"
+    "foot foot foot foot foot";
+
+  grid-template-columns: 1fr var(--menudir-width) var(--main-width-max) var(--navhead-width) 1fr;
   column-gap: var(--margin-width);
-  grid-template-columns: 1fr 0 var(--main-width-max) 0 1fr;
-    grid-template-areas:
-      "head head head head head"
-      "nav1 nav1 main nav2 nav2"
-      "nav1 nav1 navb nav2 nav2"
-      "nav1 nav1 rela nav2 nav2"
-      "foot foot foot foot foot";
-
-  @media (width > 100ch) {
-
-    grid-template-columns: 1fr var(--side-width) var(--main-width-max) 0 1fr;
-
-    button[popovertarget="menudir"] {
-      display: none;
-    }
-
-    #menudir {
-      display: block;
-      position: relative;
-      grid-area: nav1;
-      inline-size: auto;
-      block-size: auto;
-      padding: 1px 0;
-      margin: 0;
-      border: 0 none;
-      background-color: #f002;
-
-      menu {
-        position: fixed;
-        inline-size: 20ch;
-        block-size: calc(100% - var(--header-fix-height));
-        overflow: auto;
-      }
-    }
-
-  }
-
-  @media (width > 130ch) {
-
-    grid-template-columns: 1fr var(--side-width) var(--main-width-max) var(--side-width) 1fr;
-
-    button[popovertarget="pagecontents"] {
-      display: none;
-    }
-
-    nav-heading {
-      display: block;
-      position: relative;
-      grid-area: nav2;
-      inline-size: auto;
-      block-size: auto;
-      padding: 1px 0;
-      margin: 0;
-      border: 0 none;
-      background-color: #00f2;
-
-      nav {
-        position: fixed;
-        inline-size: 20ch;
-        block-size: calc(100% - var(--header-fix-height));
-        overflow: auto;
-      }
-    }
-
-  }
 
   & > header, & > footer {
 
@@ -89,7 +37,14 @@
 
   & > footer {
     grid-area: foot;
-    background-color: #000;
+  }
+
+  & > #menudir {
+    grid-area: nav1;
+  }
+
+  & > nav-heading {
+    grid-area: nav2;
   }
 
   & > main {

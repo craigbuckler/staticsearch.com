@@ -1,0 +1,346 @@
+---
+title: Sub-page
+menu: Sub-page
+description: How to add search functionality to any page using the <static-search> web component.
+date: 2025-06-17
+modified: 2026-06-02
+priority: 0.8
+tags: StaticSearch, HTML, CSS, web component
+---
+
+::: aside
+
+You must [run the StaticSearch indexer](__/tools/staticsearch/search-indexer/) to generate JavaScript code and JSON word indexes before adding search functionality to your site. This tutorial assumes you generated them to the static site's `/search/` directory.
+
+::: /aside
+
+
+The `<static-search>`{language=html} web component provides full search functionality in any web page using HTML alone. It's the easiest option, e.g.
+
+{{ HTML excerpt }}
+```html
+<!-- include script once on your page -->
+<script type="module" src="/search/staticsearch-component.js"></script>
+
+<!-- define web component -->
+<static-search title="press Ctrl+K to search">
+  <p>search</p>
+</static-search>
+```
+
+:::aside
+
+Put the `<script>` tag anywhere in your page. It's non-blocking and runs when the DOM is ready -- near the top of the HTML `<head>` is best. It loads 11Kb of JavaScript, 4Kb of CSS, and associated index data when the user starts a new search.
+
+:::/aside
+
+The component uses a [Shadow DOM](https://developer.mozilla.org/docs/Web/API/Web_components/Using_shadow_DOM) so your page styles do not affect its layout. You can safely style it using [custom properties](#css-custom-property-styling) or [`::part` selectors](#css-part-selector-styling).
+
+
+## Search activation element
+
+Place `<static-search>`{language=html} anywhere you want a search icon or text -- perhaps in the page `<header>`{language=html}. It requires a single inner element that the user clicks to activate the search. This opens a modal dialog with an input field and results list.
+
+The activation element must be an element with content -- it cannot be empty or text only. The element has a `part` attribute of `activate` (unless you override it) which you can [use for styling](#css-part-selector-styling), e.g.
+
+{{ HTML excerpt }}
+```html
+<static-search title="press Ctrl+K to search">
+
+  <a href="https://duckduckgo.com/?q=search%20site:mysite.com">
+    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" width="30" height="30">
+      <path d="M10 4a6 6 0 1 0 0 12 6 6 0 0 0 0-12Zm-8 6a8 8 0 1 1 14.3 5l5.4 5.3a1 1 0 0 1-1.4 1.4l-5.4-5.4A8 8 0 0 1 2 10Z"></path>
+    </svg>
+  </a>
+
+</static-search>
+```
+
+::: aside
+
+This example links to [duckduckgo.com search](https://duckduckgo.com/) by default. The web component progressively enhances it to use StaticSearch instead, but the user still gets a search facility when JavaScript fails to load or run.
+
+::: /aside
+
+
+### Activating search from other elements
+
+Any HTML element with a non-empty `data-static-search` attribute can also activate the search dialog, e.g.
+
+{{ HTML excerpt }}
+```html
+<a href="#" data-static-search="search">search</a>
+```
+
+
+## Web component attributes
+
+Add any of the following `<static-search>` attributes to control functionality:
+
+| attribute | description |
+|-|-|
+| `title="<string>"` | hover-over activation instructions |
+| `label="<string>"` | the label on the search `<input>` |
+| `fuzzy="<num>"` | return up to this many words for partial string matches |
+| `minfound="<num>"` | only show pages containing at least this proportion of search words (`0.0` to `1.0`) |
+| `minscore="<num>"` | only show pages with [total relevancy scores](__/tools/staticsearch/search-indexer/#word-indexing-options) of this or above on results |
+| `maxresults="<num>"` | show up to this number of pages on the results |
+| `highlight="<any>"` | scroll to and highlight the first matching search terms |
+
+The default `fuzzy` value is `6`. Searching for a string such as `"exp"` returns up to six words in the index starting with those characters.
+
+* Setting `fuzzy="3"` returns up to three words
+
+* Setting `fuzzy="1"` or lower reverts to the original search behaviour and the user must type most of the word before results appear.
+
+Search results provide a `found` value indicating the percentage of search words found on a page, e.g. two of four search words is `0.5`.
+
+* setting `minfound="0"`{language=html} (the default) is a *logical OR*. A page appears in results when it contains ANY of the search words.
+
+* setting `minfound="1"`{language=html} is a *logical AND*. A page appears in results when it contains ALL the search words. This could be useful for finding recipes that contain specific ingredients.
+
+* setting `minfound="0.5"`{language=html} means a page appears in results when it contains at least half of the search words.
+
+Pages still appear in order of relevancy, but higher `minfound` values will reduce the number of results.
+
+Set a `highlight` attribute to scroll to and highlight the first matching search terms on a results page. This uses the browser's native [text fragment links](https://developer.mozilla.org/docs/Web/URI/Reference/Fragment/Text_fragments) but note:
+
+1. searching for "highlight" will return pages containing "highlighted" and "highlighter", but they are not highlighted.
+
+1. A highlighted word could appear outside your main content, such as in a menu.
+
+
+## Overriding HTML templates
+
+You can change the HTML shown when displaying results using `<template>` elements.
+
+
+### Search results message
+
+When search results are available, you'll see a message such as:
+
+> 7 found for *"web component"*&hellip;
+
+It uses the HTML code:
+
+{{ HTML excerpt }}
+```html
+<p part="resultmessage">
+  <span part="resultcount"></span> found for
+  <span part="searchterm"></span>&hellip;
+</p>
+```
+
+You can override this using a `<template>`{language=html} with an ID of `staticsearch_resultmessage` in your HTML page (it can be within `<static-search>`{language=html} or elsewhere). You must set the `part` attributes `"resultmessage"`, `"resultcount"`, and `"searchterm"` as necessary, e.g.
+
+{{ HTML excerpt }}
+```html
+<template id="staticsearch_resultmessage">
+
+  <p part="resultmessage">
+    StaticSearch found
+    <span part="resultcount"></span> results
+    for <span part="searchterm"></span>:
+  </p>
+
+</template>
+```
+
+### Search result item
+
+An ordered list (`<ol part="searchresult">`{language=html}) contains search results. Each page result uses the HTML:
+
+{{ HTML excerpt }}
+```html
+<li part="item">
+  <a part="link">
+    <h2 part="title"></h2>
+    <p part="meta">
+      <time part="date"></time> &ndash;
+      <span part="words">0</span> words
+    </p>
+    <p part="description"></p>
+  </a>
+</li>
+```
+
+You can override this using a `<template>`{language=html} with an ID of `staticsearch_item` in your HTML page (it can be within `<static-search>`{language=html} or elsewhere). Set the `part` attributes `"item"`, `"link"`, `"title"`, `"meta"`, `"date"`, `"words"`, and `"description"` as necessary, e.g. show the title but no description, date, or word count in an `<article>`:
+
+{{ HTML excerpt }}
+```html
+<template id="staticsearch_item">
+
+  <li part="item">
+    <article>
+      <h2 part="title"><a part="link"></a></h2>
+    </article>
+  </li>
+
+</template>
+```
+
+::: aside
+
+The user's locale determines the date and word count formats. This may be different to the language your site uses.
+
+::: /aside
+
+
+## CSS custom property styling
+
+You can style `<static-search>` elements using CSS custom properties (variables) in the `:root` or any ancestor element. StaticSearch uses a neutral set of colors and follows your site's light/dark theme if your CSS sets `color-scheme: light dark;`, `color-scheme: light;`, or `color-scheme: dark;` as necessary.
+
+The following code shows custom property defaults you can change:
+
+{{ CSS excerpt }}
+```css
+:root {
+  /* font size */
+  --staticsearch-fontsize: 1em;
+
+  /* modal dimensions */
+  --staticsearch-maxwidth: 60ch;
+  --staticsearch-margin: 3vmin;
+  --staticsearch-padding: 2vmin;
+  --staticsearch-fieldset-height: calc(3em + (2 * var(--staticsearch-padding)));
+
+  /* colors */
+  --staticsearch-color-back: Canvas;
+  --staticsearch-color-border: ButtonFace;
+
+  --staticsearch-color-fore0: CanvasText;
+  --staticsearch-color-fore1: color-mix(in oklab, CanvasText 80%, Canvas);
+  --staticsearch-color-fore2: color-mix(in oklab, CanvasText 60%, Canvas);
+
+  --staticsearch-color-link: color-mix(in oklab, LinkText 70%, CanvasText);
+  --staticsearch-color-visited: color-mix(in oklab, VisitedText 70%, CanvasText);
+
+  --staticsearch-color-shadow: #000;
+  --staticsearch-color-backdrop: color-mix(in srgb, var(--colshad0), transparent 30%);
+  --staticsearch-backdrop-blur: 3px;
+}
+```
+
+
+## CSS `::part` selector styling
+
+You can target `static-search` elements using `::part` selectors. StaticSearch generates HTML such as this -- *note the `part` attribute names:*
+
+{{ HTML excerpt }}
+```html
+<static-search>
+
+  <!-- user-defined activation element -->
+  <p part="activate">search</p>
+
+  <!-- dialog with aria-expanded when open -->
+  <dialog part="dialog" aria-expanded="true">
+
+    <!-- close button -->
+    <form method="dialog">
+      <button part="close">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path xmlns="http://www.w3.org/2000/svg" fill="currentColor" d="M5.3 5.3a1 1 0 0 1 1.4 0l5.3 5.3 5.3-5.3a1 1 0 1 1 1.4 1.4L13.4 12l5.3 5.3a1 1 0 0 1-1.4 1.4L12 13.4l-5.3 5.3a1 1 0 0 1-1.4-1.4l5.3-5.3-5.3-5.3a1 1 0 0 1 0-1.4Z"/></svg>
+      </button>
+    </form>
+
+    <!-- search form -->
+    <search part="search">
+      <label for="search" part="searchlabel">search</label>
+      <input type="search" id="search" name="q" minlength="2" maxlength="300" part="searchinput" />
+    </search>
+
+    <!-- search results -->
+    <div part="results">
+
+      <!-- default results message -->
+      <p part="resultmessage">
+        <span part="resultcount">1</span> found for
+        <span part="searchterm">"web component"</span>&hellip;
+      </p>
+
+      <!-- results list -->
+      <ol part="searchresult">
+
+        <!-- default results item -->
+        <li part="item">
+          <a part="link">
+            <h2 part="title"></h2>
+            <p part="meta">
+              <time part="date"></time> &ndash;
+              <span part="words">0</span> words
+            </p>
+            <p part="description"></p>
+          </a>
+        </li>
+
+      </ol>
+
+    </div>
+
+    <a part="poweredby" href="https://staticsearch.com/">powered by StaticSearch</a>
+
+  </dialog>
+
+<static-search>
+```
+
+You can target any element with its `::part` selector:
+
+{{ CSS excerpt }}
+```css
+static-search {
+
+  /* activation element */
+  &::part(activate) {
+    color: #00f;
+  }
+
+  /* modal dialog */
+  &::part(dialog) {
+    border: 5px solid #f00;
+  }
+
+  /* input */
+  &::part(searchlabel) {
+    text-transform: uppercase;
+  }
+
+  &::part(searchinput) {
+    font-family: monospace;
+  }
+
+  &::part(resultmessage) {
+    font-size: 1.5em;
+  }
+
+  &::part(description) {
+    font-size: 0.8em;
+  }
+
+}
+```
+
+
+## Mobile virtual keyboards
+
+Mobile keyboards *float* above the StaticSearch `<dialog>`{language=html}:
+
+<img src="__/images/mobile-keyboard-overlay.webp" class="imgsmall" alt="floating mobile keyboard">
+
+You cannot scroll to the end of the results because they're obstructed by the virtual keyboard. You can minimize the keyboard but that requires an extra click and may not be obvious on all devices.
+
+Adding `interactive-widget=resizes-content` to your HTML `viewport` meta tag can improve the user experience, e.g.
+
+{{ HTML <head> }}
+```html
+<meta name="viewport" content="width=device-width,interactive-widget=resizes-content">
+```
+
+This resizes the viewport when the keyboard appears. The `<dialog>`{language=html} height changes accordingly and it becomes easier to scroll through results.
+
+<img src="__/images/mobile-keyboard-resize.webp" class="imgsmall" alt="mobile keyboard resizes viewport">
+
+
+## Re-run the indexer
+
+Once you have added StaticSearch functionality to your static site's templates, you should [re-run the indexer](__/tools/staticsearch/search-indexer/) to ensure word indexes are up-to-date.

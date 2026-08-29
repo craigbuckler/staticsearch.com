@@ -1,6 +1,4 @@
-/*
-  animated background
-*/
+/* animated background */
 @property --rg1x {
   syntax: '<percentage>';
   initial-value: 0%;
