@@ -50,12 +50,14 @@ index: weekly
 
 You can add search to your site in five minutes. StaticSearch indexes your site **after** it's built. It's quickest to add the search widget first so there's no need to re-generate the site again. Add the following tag to your pages or templates where you want a search icon to appear (typically, in your page `<header>`):
 
+{{ HTML }}
 ```html
 <script type="module" src="/search/staticsearch-here.js"></script>
 ```
 
 You can style the SVG icon with CSS, e.g.
 
+{{ CSS }}
 ```css
 static-search::part(activate) {
   inline-size: 2em;
@@ -67,6 +69,7 @@ Build your site using whatever process or [Static Site Generator](https://public
 
 The StaticSearch indexer requires [Node.js 22](https://nodejs.org/) or above. From the command-line, `cd` to the root folder of your built website and run:
 
+{{ terminal }}
 ```bash
 npx staticsearch ./
 ```
@@ -75,6 +78,7 @@ This creates a new folder named `search` that contains the index data and Static
 
 Test your site's search functionality by deploying the site. You can also test locally by running a development web server:
 
+{{ terminal }}
 ```bash
 npx livelocalhost
 ```
@@ -159,6 +163,7 @@ Run the indexer again whenever your content changes.
 
 <p>Yes. Either <code>Disallow:</code> the URL in <code>robots.txt</code> or add a meta tag in the page's HTML <code>&lt;head&gt;</code>:</p>
 
+{{ HTML `<head>` }}
 ```html
 <!-- omit page from all search engines including StaticSearch -->
 <meta name="robots" content="noindex">

@@ -43,7 +43,7 @@ publican.config.markdownOptions.prism.defaultLanguage = 'bash';
 publican.config.dirPages.size = 12;
 publican.config.dirPages.sortBy = 'filename';
 publican.config.dirPages.sortOrder = 1;
-publican.config.dirPages.dir.news = {
+publican.config.dirPages.dir.blog = {
   sortBy: 'date',
   sortOrder: -1
 };

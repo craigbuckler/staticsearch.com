@@ -31,7 +31,7 @@
 }
 
 body.animback {
-  /* ellipse from #2a303c and #1a222c */
+
   background:
     radial-gradient(ellipse at var(--rg1x) var(--rg1y), var(--color-back4) 0%, transparent 50%),
     radial-gradient(ellipse at var(--rg2x) var(--rg2y), var(--color-back3) 0%, transparent 50%),
@@ -40,6 +40,11 @@ body.animback {
 
   @media (prefers-reduced-motion: no-preference) {
     animation: backgroundMove 40s linear infinite alternate-reverse;
+  }
+
+  #pagegrid > header {
+    background-color: transparent;
+    backdrop-filter: blur(10px);
   }
 
 }

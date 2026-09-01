@@ -20,7 +20,7 @@
   --fsize-5: clamp(2.4883rem, 1.3001rem + 5.2811vi, 5.2609rem);
 
   /* layout */
-  --header-height: 5ch;
+  --header-height: 4rem;
   --main-width: 65ch;
   --main-width-max: minmax(300px, var(--main-width));
   --side-width: 20ch;

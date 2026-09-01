@@ -1,12 +1,6 @@
 /* layout */
 #pagegrid {
 
-  /*
-    TODO: format and size sidebars (too small?) Move into separate CSS
-    TODO: ensure all meta grid areas are added as necessary
-    TODO: fix issue where browser is enlarged when popover is open (close all on resize?)
-  */
-
   --menudir-width: 0;
   --navhead-width: 0;
 

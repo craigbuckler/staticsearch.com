@@ -2,6 +2,7 @@
 
   inset-block-start: 0;
   inline-size: 100%;
+  background-color: var(--color-sidebar);
   z-index: 1;
   view-transition-name: none;
 
@@ -34,13 +35,13 @@
 
   > nav > *:not(.logo) {
 
-    a:link, a:visited, svg, label {
+    a:link, a:visited, summary, label {
       font-weight: var(--font-weight-bold);
       text-decoration: none;
       color: var(--color-fore3);
     }
 
-    a, svg, use, label {
+    a, summary, label {
       &:hover, &:active, &:focus {
         color: var(--color-fore1);
       }
@@ -74,24 +75,37 @@
 
   details {
     position: relative;
+    overflow: visible;
+
+    &::details-content {
+      transition: none;
+    }
 
     &:open summary svg {
       color: var(--color-fore1);
     }
   }
 
-  summary svg {
-    block-size: var(--header-height);
+  summary {
+
+    &::before {
+      display: none;
+    }
+
+    svg {
+      block-size: var(--header-height);
+    }
+
   }
 
   menu {
     position: absolute;
-    inline-size: max-content;
+    inline-size: 18ch;
     max-block-size: calc(98vb - var(--header-height) - 1em);
     inset-block-start: 100%;
     inset-inline-end: 0;
-    padding-block: 0.5em;
-    background-color: var(--color-back1);
+    padding: 0.5em 0;
+    background-color: var(--color-sidebar);
     overflow-block: auto;
     overscroll-behavior: contain;
 
@@ -116,7 +130,7 @@
       inline-size: calc(100% - 2em);
       margin-block: 0.5em;
       margin-inline: auto;
-      background-color: var(--color-back3);
+      background-color: var(--color-back1);
     }
 
   }
@@ -185,7 +199,6 @@ static-search {
 
   #pagegrid > header {
     position: sticky;
-    backdrop-filter: blur(8px);
   }
 
 }

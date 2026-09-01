@@ -1,0 +1,19 @@
+/* generic navigation components */
+#menudir, nav-heading {
+
+  position: fixed;
+  inline-size: min(var(--side-width), 95vi);
+  block-size: auto;
+  border: 0 none;
+  background-color: var(--color-sidebar);
+  overflow-inline: hidden;
+  overflow-block: auto;
+  overscroll-behavior: contain;
+  transition: transform 0.2s ease-in-out, display 0.2s allow-discrete;
+
+  > * {
+    padding: 0;
+    margin: var(--header-fix-height) 0 0 var(--margin-width);
+  }
+
+}

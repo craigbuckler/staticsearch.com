@@ -10,16 +10,9 @@ body:has(nav-heading:empty) {
 
 nav-heading {
 
-  position: fixed;
-  inline-size: min(var(--side-width), 95vi);
-  block-size: auto;
   inset: var(--header-height) 0 0 auto;
-  border: 0 none;
-  background-color: var(--color-sidebar);
-  overflow-block: auto;
-  overscroll-behavior: contain;
+  border-inline-start: 2px solid var(--color-back1);
   transform: translateX(100%);
-  transition: transform 0.2s ease-in-out, display 0.2s allow-discrete;
 
   &:popover-open {
     transform: none;
@@ -53,13 +46,6 @@ nav-heading {
     background-color: transparent;
     overscroll-behavior: auto;
 
-    nav {
-      position: fixed;
-      inline-size: 20ch;
-      block-size: calc(100% - var(--header-fix-height));
-      overflow: auto;
-    }
-
     &::after {
       display: block;
       position: absolute;
@@ -67,7 +53,15 @@ nav-heading {
       inline-size: auto;
       block-size: 2lh;
       inset: auto 0 0 0;
-      background: linear-gradient(180deg, transparent, #000);
+      background: linear-gradient(180deg, transparent, var(--color-back1));
+      pointer-events: none;
+    }
+
+    nav {
+      position: fixed;
+      inline-size: 20ch;
+      block-size: calc(100% - var(--header-fix-height));
+      overflow: auto;
     }
 
   }
