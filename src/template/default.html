@@ -4,7 +4,7 @@ ${ include('_partials/htmlhead.html') }
 
   ${ include('_partials/header.html') }
 
-  ${ data.directory === 'docs' ? `<nav id="menudir" popover>${ tacs.lib.nav.menuDir( tacs, 'docs', data.link, 2) }</nav>` : '' }
+  ${ data.directory === 'docs' ? `<nav id="menudir" popover><div>${ tacs.lib.nav.menuDir( tacs, 'docs', data.link, 2) }</div></nav>` : '' }
 
   <main>
 

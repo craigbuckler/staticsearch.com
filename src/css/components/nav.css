@@ -1,19 +1,30 @@
 /* generic navigation components */
 #menudir, nav-heading {
 
+  display: block;
   position: fixed;
   inline-size: min(var(--side-width), 95vi);
   block-size: auto;
+  font-weight: var(--font-weight-menu);
+  text-wrap: balance;
   border: 0 none;
+  border-block-start: 1px solid var(--color-back1);
   background-color: var(--color-sidebar);
   overflow-inline: hidden;
   overflow-block: auto;
   overscroll-behavior: contain;
   transition: transform 0.2s ease-in-out, display 0.2s allow-discrete;
+  z-index: 1;
 
   > * {
+    font-size: var(--fsize--1);
+    inline-size: 100%;
     padding: 0;
-    margin: var(--header-fix-height) 0 0 var(--margin-width);
+    padding-block-start: var(--list-indent);
+  }
+
+  a {
+    display: inline-block;
   }
 
 }

@@ -27,7 +27,7 @@ html {
 
 body {
   box-sizing: border-box;
-  line-height: 1.5;
+  line-height: 1.6;
   touch-action: manipulation;
 }
 
@@ -54,7 +54,6 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 p, li {
-  line-height: 1.5;
   text-wrap: pretty;
   overflow-wrap: break-word;
 }

@@ -35,10 +35,22 @@
 
   & > #menudir {
     grid-area: nav1;
+    display: grid;
+    grid-template-columns: subgrid;
+
+    > * {
+      grid-column: 2 / 3;
+    }
   }
 
   & > nav-heading {
     grid-area: nav2;
+    display: grid;
+    grid-template-columns: subgrid;
+
+    > * {
+      grid-column: 1 / 2;
+    }
   }
 
   & > main {

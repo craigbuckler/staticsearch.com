@@ -12,7 +12,7 @@ details::details-content {
   block-size: 0;
 
   @media (prefers-reduced-motion: no-preference) {
-    transition: content-visibility 0.3s allow-discrete, height 0.3s ease-in-out;
+    transition: height 0.2s ease-in-out, content-visibility 0.2s allow-discrete;
   }
 }
 
@@ -33,9 +33,9 @@ summary {
     text-align: center;
     vertical-align: baseline;
     content: '\25bc';
-    inline-size: 1.5rem;
-    color: var(--color-hint1);
-    transition: transform 0.3s ease-out;
+    inline-size: var(--list-indent);
+    color: var(--color-fore5);
+    transition: transform 0.2s ease-out;
   }
 
   & > a, & > strong {
@@ -49,7 +49,7 @@ details:not([open]) > summary::before {
 }
 
 details[open] > summary::before {
-  transform: rotate(-540deg);
+  transform: rotate(-180deg);
 }
 
 nav {
@@ -60,8 +60,17 @@ nav {
     margin: 0;
   }
 
-  ul, ol, menu {
-    padding-inline-start: 1.5rem;
+  li {
+    padding-inline-start: var(--list-indent);
+    padding-block: 0.25em;
+  }
+
+  li:has(summary) {
+    padding-inline-start: 0;
+
+    li {
+      padding-inline-start: calc(2 * var(--list-indent));
+    }
   }
 
   a:link, a:visited {

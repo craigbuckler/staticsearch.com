@@ -36,11 +36,11 @@ body:not(:has(#menudir)) {
   }
 
   #menudir {
-    display: block;
     position: relative;
     inset-block-start: 0;
-    inline-size: auto;
+    inline-size: 100%;
     block-size: auto;
+    border-block-start: 0 none;
     transform: none;
     overscroll-behavior: auto;
 
@@ -55,11 +55,20 @@ body:not(:has(#menudir)) {
       pointer-events: none;
     }
 
-    & > menu {
-      position: fixed;
-      inline-size: 20ch;
-      block-size: calc(100% - var(--header-fix-height));
+    > * {
+      margin-inline: 0;
       overflow: auto;
+
+      > menu {
+        position: fixed;
+        inline-size: var(--side-width);
+        block-size: calc(95vb - var(--header-fix-height));
+        overflow: auto;
+      }
+    }
+
+    details menu {
+      padding-block-end: 1em;
     }
 
   }
