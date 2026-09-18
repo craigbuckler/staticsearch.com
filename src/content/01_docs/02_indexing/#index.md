@@ -13,6 +13,104 @@ You must run the StaticSearch indexing process whenever your site content change
 During indexing, StaticSearch extracts words from all the HTML files in a build directory (such as `./build/`) and creates a new directory (`./build/search/`) containing index data, JavaScript, and CSS files.
 
 
+
+
+## No installation
+
+You can run the StaticSearch indexer from the command line without installation wherever you run the build process:
+
+{{ terminal }}
+```bash
+npx staticsearch
+```
+
+The examples below use this syntax. You can set any number of options on the command line.
+
+
+## Global installation
+
+If you build projects on your local development machine, it may be practical to install StaticSearch as a global `npm` module:
+
+{{ terminal }}
+```bash
+npm install staticsearch -g
+```
+
+You can then run it from the command line from any directory:
+
+{{ terminal }}
+```bash
+staticsearch
+```
+
+
+## Node.js project installation
+
+You can install StaticSearch inside a Node.js project if you want to configure it within your build process:
+
+```bash
+npm install staticsearch
+```
+
+You can then create `npm` scripts inside `package.json`, e.g.
+
+{{ `package.json` extract }}
+```json
+"scripts": {
+  "build": "node ./build.js",
+  "index": "staticsearch ./build/ --root=/"
+},
+```
+
+then run the `staticsearch` script from the project directory:
+
+```bash
+npm run index
+```
+
+You can also use the [StaticSearch Node.js API](__/indexing/indexer-api.md) inside JavaScript modules, e.g.
+
+{{ example.js }}
+```js
+// index site
+import { staticsearch } from 'staticsearch';
+
+// configure
+staticsearch.buildDir = './build/';
+staticsearch.buildRoot = '/';
+
+// run indexer
+await staticsearch.index();
+```
+
+
+
+## Indexer help
+
+For help, enter the following command to view StaticSearch CLI options:
+
+{{ terminal }}
+```bash
+npx staticsearch --help
+```
+
+You can also configure StaticSearch using environment variables. For help:
+
+{{ terminal }}
+```bash
+npx staticsearch --helpenv
+```
+
+For [Node.js API](__/indexing/indexer-api.md) help, enter:
+
+{{ terminal }}
+```bash
+npx staticsearch --helpapi
+```
+
+
+
+
 ## Installing StaticSearch
 
 You can run StaticSearch without installation:

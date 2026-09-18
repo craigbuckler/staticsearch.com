@@ -10,7 +10,7 @@ body {
 h1, h2, h3 {
   font-weight: var(--font-weight-head);
   margin-block-start: 1.5em;
-  line-height: 0.9;
+  line-height: 0.85;
   letter-spacing: -0.09em;
   word-spacing: 0.05em;
   color: var(--color-fore3);
@@ -31,6 +31,36 @@ p {
 
 ul, ol, li {
   margin-block: 1em 1.5em;
+}
+
+main aside, blockquote {
+  font-size: var(--fsize--1);
+  padding-block: calc(0.5 * var(--list-indent));
+  padding-inline: var(--list-indent);
+  margin-block: var(--list-indent);
+  color: var(--color-fore1);
+  background-color: var(--color-back3);
+  border-inline-start: 3px solid var(--color-fore5);
+
+  h2, h3, h4 {
+    font-size: var(--fsize-1);
+
+    &::before {
+      display: inline-block;
+      content: '\24D8';
+      padding-inline-end: 0.25em;
+      color: var(--color-fore3);
+    }
+  }
+
+  *:first-child {
+    margin-block-start: 0;
+  }
+
+  p {
+    margin-block-start: 0.6em;
+  }
+
 }
 
 menu {
@@ -78,12 +108,27 @@ sup, sub {
 
 a:link, a:visited {
   text-decoration: underline;
-  text-underline-offset: 0.1em;
+  text-underline-offset: 0.2em;
+  text-decoration-thickness: 0.05em;
   color: var(--color-fore3);
+  transition: color 0.1s linear;
 }
 
 a:hover, a:active, a:focus {
   color: var(--color-fore1);
+}
+
+a.headlink {
+  visibility: hidden;
+  font-size: 0.6em;
+  vertical-align: text-top;
+  text-decoration: none;
+  user-select: none;
+
+  :where(h2, h3):where(:hover, :focus) & {
+    visibility: visible;
+  }
+
 }
 
 svg, use {

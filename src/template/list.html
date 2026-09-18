@@ -8,9 +8,14 @@ ${ include('_partials/htmlhead.html') }
 
   <main>
 
-    ${ data?.pagination &&
-      `<h1>${ tacs.lib.feed.escape( data.title ) }${ data.pagination.pageTotal > 1 ? `, page ${ tacs.lib.format.number( data.pagination.pageCurrent1 ) } of ${ tacs.lib.format.number( data.pagination.pageTotal ) }` : ''}</h1>`
-    }
+    <header>
+
+      <h1>
+        ${ tacs.lib.feed.escape( data.title ) }${ data?.pagination && `${ data.pagination.pageTotal > 1 ? ` <span>page ${ tacs.lib.format.number( data.pagination.pageCurrent1 ) } of ${ tacs.lib.format.number( data.pagination.pageTotal ) }</span>` : ''}`
+        }
+      </h1>
+
+    </header>
 
     ${ data.content }
 

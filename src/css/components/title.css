@@ -1,0 +1,58 @@
+/* title */
+main header {
+
+  margin-block-end: var(--section-gap);
+
+  h1 {
+    margin-block: 0;
+    padding-block: 0 0.2em;
+
+    span {
+      display: block;
+      font-size: 0.5em;
+      letter-spacing: -0.05em;
+      color: var(--color-fore4);
+    }
+  }
+
+  p {
+    margin-block: 0;
+    color: var(--color-fore4);
+  }
+
+  p.meta {
+    font-size: var(--fsize--1);
+  }
+
+}
+
+.breadcrumb {
+
+  position: relative;
+  font-size: var(--fsize--1);
+  color: var(--color-fore4);
+
+  ol, li, a {
+    text-decoration: none;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  ol {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: center;
+  }
+
+  li:after {
+    display: inline-block;
+    content: '\25b6';
+    font-size: 0.6em;
+    padding-inline: 0.8em;
+    vertical-align: 10%;
+  }
+
+}

@@ -1,6 +1,55 @@
 #pagegrid > footer {
+
+  font-size: var(--fsize--1);
   background-color: var(--color-sidebar);
   border-block-start: 1px solid var(--color-back1);
+
+  body.animback & {
+    background-color: var(--color-back1);
+  }
+
+  & > nav {
+    inline-size: 100%;
+    display: grid;
+    grid-template-columns: 1fr min-content;
+    align-items: center;
+    gap: 1rem;
+    margin: var(--section-gap) auto;
+  }
+
+  p, ol, li {
+    padding: 0;
+    margin: 0;
+  }
+
+  a {
+    display: inline-block;
+    padding-block: 0.25em;
+  }
+
+  .logo {
+    font-size: var(--fsize-1);
+    align-self: start;
+
+    a {
+      padding: 0;
+    }
+  }
+
+  hr {
+    grid-column-start: span 2;
+  }
+
+  .iconlinks {
+    font-size: var(--fsize-0);
+    display: flex;
+    flex-direction: row;
+
+    a {
+      padding-inline-end: 1em;
+    }
+  }
+
 }
 
 #top {

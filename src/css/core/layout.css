@@ -5,16 +5,20 @@
   --navhead-width: 0;
 
   display: grid;
+  min-block-size: 100vb;
 
   grid-template-areas:
     "head head head head head"
     "nav1 nav1 main nav2 nav2"
     "nav1 nav1 navb nav2 nav2"
     "nav1 nav1 rela nav2 nav2"
+    "nav1 nav1 tags nav2 nav2"
     "foot foot foot foot foot";
 
   grid-template-columns: 1fr var(--menudir-width) var(--main-width-max) var(--navhead-width) 1fr;
+  grid-template-rows: auto 1fr auto auto auto auto;
   column-gap: var(--margin-width);
+  row-gap: 0;
 
   & > header, & > footer {
 
@@ -55,14 +59,19 @@
 
   & > main {
     grid-area: main;
+    margin-block: var(--section-gap);
   }
 
-  & > nav.backnext {
+  & > .backnext {
     grid-area: navb;
   }
 
-  & > aside {
+  & > .related, & > .pinned {
     grid-area: rela;
+  }
+
+  & > .posttags {
+    grid-area: tags;
   }
 
 }

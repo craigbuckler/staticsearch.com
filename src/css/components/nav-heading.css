@@ -23,6 +23,28 @@ nav-heading {
 
   }
 
+  ol, li, a {
+    padding: 0;
+  }
+
+  a {
+    padding-inline-start: var(--list-indent);
+    padding-block: 0.4em;
+    border-inline-start: 2px solid var(--color-sidebar);
+
+    &.active {
+      border-color: var(--color-fore2);
+    }
+  }
+
+  li li a {
+    padding-inline-start: calc(2 * var(--list-indent));
+  }
+
+  li li li a {
+    padding-inline-start: calc(3 * var(--list-indent));
+  }
+
 }
 
 /* menu always shown */
@@ -66,6 +88,7 @@ nav-heading {
         block-size: calc(95vb - var(--header-fix-height));
         overflow: auto;
       }
+
     }
 
   }

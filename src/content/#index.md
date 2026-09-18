@@ -22,7 +22,7 @@ index: weekly
 
 ## Benefits
 
-* **zero backend and serverless:** no database, no maintenance, no security problems, no headaches
+* **zero backend and serverless:** no database, no maintenance, no security problems, no headaches.
 
 * **fast zero-configuration indexing:** StaticSearch understands your pages. It indexes sites in seconds without you having to mark or programmatically add content.
 
@@ -48,102 +48,87 @@ index: weekly
 
 ## Quick start
 
-You can add search to your site in five minutes. StaticSearch indexes your site **after** it's built. It's quickest to add the search widget first so there's no need to re-generate the site again. Add the following tag to your pages or templates where you want a search icon to appear (typically, in your page `<header>`):
+**Add search to your site in five minutes.**
+
+Add this tag where you want a search icon to appear (typically, in your HTML `<header>`):
 
 {{ HTML }}
 ```html
 <script type="module" src="/search/staticsearch-here.js"></script>
 ```
 
-You can style the SVG icon with CSS, e.g.
+Build your site using your [Static Site Generator](https://publican.dev/). The `<script>` won't do anything until you index your site's content&hellip;
 
-{{ CSS }}
-```css
-static-search::part(activate) {
-  inline-size: 2em;
-  block-size: auto;
-}
-```
-
-Build your site using whatever process or [Static Site Generator](https://publican.dev/) you're using.
-
-The StaticSearch indexer requires [Node.js 22](https://nodejs.org/) or above. From the command-line, `cd` to the root folder of your built website and run:
+From the command-line, `cd` to your built website's root and run:
 
 {{ terminal }}
 ```bash
 npx staticsearch ./
 ```
 
-This creates a new folder named `search` that contains the index data and StaticSearch code you included above.
-
-Test your site's search functionality by deploying the site. You can also test locally by running a development web server:
-
-{{ terminal }}
-```bash
-npx livelocalhost
-```
-
-Navigate to the `localhost` address, clicking the search icon, and enter some queries.
+StaticSearch creates a `search` directory with code and word index data. Test or deploy your site to try the search.
 
 Run the indexer again whenever your content changes.
 
+[Refer to the documentation for more information&hellip;](__/docs/)
+
 ::: /article
 
-::: article
+::: article class="questions"
 
 ## FAQs
 
 <details>
 <summary>Why does StaticSearch exist?</summary>
 
-<p>I required a search facility for my static <a href="https://publican.dev/">Publican documentation</a>. There are several client-side only search engines, but:</p>
+<p>The <a href="https://publican.dev/">Publican Static Site Generator documentation</a> had many pages and required a search facility. There are several client-side search engines, but:</p>
 
 <ul>
-<li>most require you to manually add content to an index. I wanted an easier option that automatically created an index from a built site.</li>
+<li>most require you to manually add content to an index. StaticSearch automatically creates word indexes from your built site.</li>
 
-<li>some require markers to identify searchable content. I wanted an indexer to locate content without having to change the HTML.</li>
+<li>some require markers to identify searchable content. StaticSearch locates content without you having to change the HTML.</li>
 
-<li>most have large payloads with multi-megabyte indexes loaded whether you use search or not. I wanted an option with minimal JavaScript that incrementally downloaded word index data on demand.</li>
+<li>most have large payloads with multi-megabyte indexes loaded even when you don't use search. StaticSearch uses minimal JavaScript and incrementally downloads word index data on demand.</li>
 
-<li>some have an ongoing cost. I wanted an option that didn't charge for indexing or per user query.</li>
+<li>some have an ongoing cost. StaticSearch does not incur charges for indexing or queries.</li>
 </ul>
 
 </details>
 
 <details>
-<summary>Does StaticSearch work on any site?</summary>
+<summary>Will StaticSearch work on my site?</summary>
 
-<p>It works on any site that primarily consists of HTML pages, typically built by a <a href="https://publican.dev/">Static Site Generator such as Publican</a>. It may work on sites that have a small amount of server-side functionality, but extra configuration may be necessary.</p>
+<p>It works on any site that consists of HTML pages, typically built by a <a href="https://publican.dev/">Static Site Generator such as Publican</a>. It may work on sites with small amounts of server-side functionality. <a href="#quick-start">Setting up StaticSearch takes five minutes</a> so give it a try!</p>
 </details>
 
 <details>
 <summary>Do I require server or database technologies?</summary>
 
-<p>No. The StaticSearch indexer runs before your site's deployed and creates client-side JavaScript, CSS, and JSON data files. The indexer requires Node.js, but it can run on your local machine or as part of any build and deployment process.</p>
+<p>No. The StaticSearch indexer runs before your site's deployed and creates client-side JavaScript, CSS, and JSON data files. The indexer requires <a href="https://nodejs.org/">Node.js</a> 22+, but you can run it on your local machine or during your build and deployment process.</p>
 </details>
 
 <details>
-<summary>Do I need to hand-build my site's search index?</summary>
+<summary>Do I need to manually add content to a search index?</summary>
 
-<p>No. StaticSearch is simpler to use than other options because it parses the HTML of every page on your site to create a word index.</p>
+<p>No. StaticSearch parses your site's HTML pages to automatically create word indexes.</p>
 </details>
 
 <details>
 <summary>Do I need to change my HTML or mark content?</summary>
 
-<p>No. StaticSearch understands HTML so it'll locate your primary content but omit words in menus, headers, footers, etc. You can configure the indexing options if necessary.</p>
+<p>No. StaticSearch understands HTML. It locates your primary content but omits words in menus, headers, and footers. You can configure indexing options if necessary.</p>
 </details>
 
 <details>
 <summary>Does it matter if my site has minified HTML?</summary>
 
-<p>No. StaticSearch doesn't care as long as it remains possible to identify words in your content.</p>
+<p>No. StaticSearch works if it can identify words in your HTML content.</p>
 </details>
 
 <details>
 <summary>Can I configure the indexing?</summary>
 
-<p>Yes. You can override the indexing defaults for pages, parsing criteria, HTML content, the language, stop words, maximum word lengths, and word weights. You can set options using command-line switches, environment variables, or the Node.js API.</p>
+<p>Yes. You can override the indexing defaults for files, HTML parsing, the language, stop words, word lengths, word weights, and more. You can configure it using command-line switches, environment variables, or a Node.js API.</p>
 </details>
 
 <details>
@@ -163,11 +148,8 @@ Run the indexer again whenever your content changes.
 
 <p>Yes. Either <code>Disallow:</code> the URL in <code>robots.txt</code> or add a meta tag in the page's HTML <code>&lt;head&gt;</code>:</p>
 
-{{ HTML `<head>` }}
 ```html
-<!-- omit page from all search engines including StaticSearch -->
-<meta name="robots" content="noindex">
-<!-- OR omit page from StaticSearch only -->
+<!-- omit page from StaticSearch index -->
 <meta name="staticsearch" content="noindex">
 ```
 
@@ -182,19 +164,19 @@ Run the indexer again whenever your content changes.
 <details>
 <summary>Does client-side search affect page performance?</summary>
 
-<p>It shouldn't be noticeable. Unlike other options, StaticSearch does not download the site's full index on the user's first visit to your site. Someone who never searches downloads no more than 12Kb of JavaScript and CSS code. Index data is incrementally downloaded as they search for different words, but it's cached so this becomes faster over time.</p>
+<p>No. Unlike other search tools, StaticSearch does not download the site's full index on a user's first visit to your site. Someone who never searches downloads no more than 12Kb of JavaScript and CSS code. Index data is incrementally downloaded as they search for different words, but it's cached so this becomes faster over time.</p>
 </details>
 
 <details>
 <summary>Can I change the search design?</summary>
 
-<p>Yes. You can define any search activation elements, and use custom HTML templates and CSS styling.</p>
+<p>Yes. You can use your own search icons, HTML templates, and CSS styling.</p>
 </details>
 
 <details>
 <summary>Can I change the search functionality?</summary>
 
-<p>Yes. It's easy to tweak search criteria such as fuzziness, the proportion of words to find, result score factors, and the number of results shown. For more advanced options, you can use the client-side JavaScript API to create custom search functionality.</p>
+<p>Yes. It's easy to tweak search criteria such as fuzziness and the number of results shown. The StaticSearch JavaScript API allows you to create custom search functionality.</p>
 </details>
 
 <details>
@@ -206,7 +188,7 @@ Run the indexer again whenever your content changes.
 <details>
 <summary>Are there any security or privacy implications?</summary>
 
-<p>No. You're hosting client-side search data on your server which directs users to pages within your site. There's nothing to hack and the user's search queries are not tracked. No cookie notices are necessary!</p>
+<p>No. You're hosting client-side search data on your own server and directing users to pages within your site. There's nothing to hack, users are not tracked, and data is not transmitted elsewhere. You don't require GDPR or cookie notices!</p>
 </details>
 
 <details>

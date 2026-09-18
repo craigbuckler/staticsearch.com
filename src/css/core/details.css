@@ -29,11 +29,11 @@ summary {
 
   &::before {
     display: inline-block;
+    inline-size: var(--list-indent);
     font-size: 0.8em;
     text-align: center;
     vertical-align: baseline;
     content: '\25bc';
-    inline-size: var(--list-indent);
     color: var(--color-fore5);
     transition: transform 0.2s ease-out;
   }
@@ -83,6 +83,45 @@ nav {
 
   strong {
     color: var(--color-fore2);
+  }
+
+}
+
+/* FAQ block */
+.questions {
+
+  details {
+
+    border-block-start: 1px solid var(--color-back5);
+
+    &:first-of-type {
+      margin-block-start: var(--margin-width);
+    }
+
+    &:last-of-type {
+      border-block-end: 1px solid var(--color-back5);
+    }
+
+  }
+
+  details > *:not(summary) {
+    margin: 0 0 0 2rem;
+    color: var(--color-fore3);
+
+    &:last-child {
+      margin-block-end: 1em;
+    }
+  }
+
+  summary {
+
+    padding-block: 0.6em;
+
+    &::before {
+      font-size: var(--fsize-0);
+      inline-size: 2rem;
+    }
+
   }
 
 }

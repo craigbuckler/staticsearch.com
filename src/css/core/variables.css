@@ -36,7 +36,8 @@
   --main-width-max: minmax(300px, var(--main-width));
   --side-width: 22ch;
   --margin-width: min(4vi, 4ch);
-  --list-indent: 1.5rem;
+  --section-gap: 3rem;
+  --list-indent: 1.2rem;
   --header-fix-height: calc(var(--header-height) + var(--list-indent));
 
   /* dynamic sidebars */

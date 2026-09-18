@@ -11,5 +11,11 @@
 @import url('./components/nav.css');
 @import url('./components/nav-menudir.css');
 @import url('./components/nav-heading.css');
+@import url('./components/nav-pagelist.css');
+@import url('./components/nav-pagination.css');
+@import url('./components/nav-backnext.css');
+@import url('./components/nav-posttags.css');
+@import url('./components/nav-taglist.css');
+@import url('./components/title.css');
 @import url('./components/code.css');
 @import url('./components/footer.css');

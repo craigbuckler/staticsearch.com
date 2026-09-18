@@ -20,7 +20,7 @@
     font-size: var(--fsize--1);
     inline-size: 100%;
     padding: 0;
-    padding-block-start: var(--list-indent);
+    padding-block: var(--section-gap);
   }
 
   a {
