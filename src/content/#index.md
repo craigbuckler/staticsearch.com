@@ -10,11 +10,13 @@ index: weekly
 
 ::: article
 
-<h1 class="logo"><svg><use xlink:href="#svg-logo"></use></svg><span>Static<strong>Search</strong></span></h1>
+# Superior search <span>for static sites</span>
 
-<p>superior search for static sites &ndash; <a href="#" data-static-search="search" class="button">try it here</a></p>
+**StaticSearch** is a fast, lightweight, client-side search facility you can use on any static website. This site consists of HTML pages built by a [static site generator](https://publican.dev/) -- see StaticSearch in action&hellip;
 
-<p>DEMO HERE</p>
+<a href="#" data-static-search="search" class="button">SEARCH THIS SITE</a>
+
+<p class="center"><a href="#quick-start">Add search to your site in five minutes&hellip;</a></p>
 
 ::: /article
 
@@ -57,7 +59,7 @@ Add this tag where you want a search icon to appear (typically, in your HTML `<h
 <script type="module" src="/search/staticsearch-here.js"></script>
 ```
 
-Build your site using your [Static Site Generator](https://publican.dev/). The `<script>` won't do anything until you index your site's content&hellip;
+Build your site using as usual -- the `<script>` won't do anything until you index your site's content&hellip;
 
 From the command-line, `cd` to your built website's root and run:
 
@@ -66,7 +68,7 @@ From the command-line, `cd` to your built website's root and run:
 npx staticsearch ./
 ```
 
-StaticSearch creates a `search` directory with code and word index data. Test or deploy your site to try the search.
+StaticSearch creates a `search` directory with code and word index data. Test or deploy your site to try your new search facility.
 
 Run the indexer again whenever your content changes.
 
@@ -98,7 +100,9 @@ Run the indexer again whenever your content changes.
 <details>
 <summary>Will StaticSearch work on my site?</summary>
 
-<p>It works on any site that consists of HTML pages, typically built by a <a href="https://publican.dev/">Static Site Generator such as Publican</a>. It may work on sites with small amounts of server-side functionality. <a href="#quick-start">Setting up StaticSearch takes five minutes</a> so give it a try!</p>
+<p>It works on any site that consists of HTML pages, typically built by a <a href="https://publican.dev/">Static Site Generator such as Publican</a>. It may work on sites with small amounts of server-side functionality.</p>
+
+<p><a href="#quick-start">Setting up StaticSearch takes five minutes</a> so give it a try!</p>
 </details>
 
 <details>
@@ -114,6 +118,14 @@ Run the indexer again whenever your content changes.
 </details>
 
 <details>
+<summary>Does StaticSearch rank pages?</summary>
+
+<p>Yes. Search results show the most relevant pages toward the top.</p>
+
+<p>The search index assigns a relevancy score to every word on every page. A page with a word in its <code>&lt;h1&gt;</code> heading and inbound links is more relevant than one with that same word in body text.</p>
+</details>
+
+<details>
 <summary>Do I need to change my HTML or mark content?</summary>
 
 <p>No. StaticSearch understands HTML. It locates your primary content but omits words in menus, headers, and footers. You can configure indexing options if necessary.</p>
@@ -123,6 +135,12 @@ Run the indexer again whenever your content changes.
 <summary>Does it matter if my site has minified HTML?</summary>
 
 <p>No. StaticSearch works if it can identify words in your HTML content.</p>
+</details>
+
+<details>
+<summary>Can I run the indexer in my build process?</summary>
+
+<p>Yes -- and you should! Always run the StaticSearch indexer after your site is re-built. You can do this from a shell script, <code>npm</code> script, or Node.js API.</p>
 </details>
 
 <details>
@@ -158,13 +176,15 @@ Run the indexer again whenever your content changes.
 <details>
 <summary>Does StaticSearch support other languages?</summary>
 
-<p>Yes. StaticSearch defaults to English, but it supports any language and has extra features for Afrikaans, Croatian, Czech, Danish, Dutch, Estonian, Finnish, French, German, Hungarian, Irish, Italian, Latvian, Lithuanian, Malay, Norwegian, Polish, Portuguese, Romanian, Slovak, Somali, Spanish, Swahili, Swedish, Turkish, and Zulu.</p>
+<p>Yes. StaticSearch works best in English, but it supports any Latin-based language and has extra features for Afrikaans, Croatian, Czech, Danish, Dutch, Estonian, Finnish, French, German, Hungarian, Irish, Italian, Latvian, Lithuanian, Malay, Norwegian, Polish, Portuguese, Romanian, Slovak, Somali, Spanish, Swahili, Swedish, Turkish, and Zulu.</p>
 </details>
 
 <details>
 <summary>Does client-side search affect page performance?</summary>
 
-<p>No. Unlike other search tools, StaticSearch does not download the site's full index on a user's first visit to your site. Someone who never searches downloads no more than 12Kb of JavaScript and CSS code. Index data is incrementally downloaded as they search for different words, but it's cached so this becomes faster over time.</p>
+<p>No. Unlike other search tools, StaticSearch does not download the site's full index on a user's first visit to your site. Someone who never searches downloads no more than 12Kb of JavaScript and CSS code.<p>
+
+<p>Index data is incrementally downloaded as the user searches for different words, but it's cached so this becomes faster over time.</p>
 </details>
 
 <details>

@@ -15,6 +15,10 @@ h1, h2, h3 {
   word-spacing: 0.05em;
   color: var(--color-fore3);
   scroll-margin-block-start: var(--header-fix-height);
+
+  span {
+    color: var(--color-fore5);
+  }
 }
 
 h1 { font-size: var(--fsize-5); margin-block-start: 1.5rem; color: var(--color-fore2); }
@@ -102,6 +106,16 @@ strong {
   font-weight: var(--font-weight-bold);
 }
 
+kbd {
+  font-weight: var(--font-weight-bold);
+  padding: 0 0.25em;
+  color: var(--color-fore3);
+  background-color: var(--color-back3);
+  border: 1px solid var(--color-fore5);
+  border-block-end-width: 3px;
+  border-radius: 5px;
+}
+
 sup, sub {
   font-size: var(--fsize--2);
 }
@@ -111,24 +125,12 @@ a:link, a:visited {
   text-underline-offset: 0.2em;
   text-decoration-thickness: 0.05em;
   color: var(--color-fore3);
-  transition: color 0.1s linear;
+  transition: all 0.1s linear;
+  transition-property: color, background-color, border-color;
 }
 
 a:hover, a:active, a:focus {
   color: var(--color-fore1);
-}
-
-a.headlink {
-  visibility: hidden;
-  font-size: 0.6em;
-  vertical-align: text-top;
-  text-decoration: none;
-  user-select: none;
-
-  :where(h2, h3):where(:hover, :focus) & {
-    visibility: visible;
-  }
-
 }
 
 svg, use {
@@ -145,10 +147,6 @@ hr {
   block-size: 1px;
   background-color: var(--color-back2);
   border: 0 none;
-}
-
-.print, .alt {
-  display: none;
 }
 
 static-search {

@@ -9,6 +9,12 @@ tags: quick start, indexer
 
 The StaticSearch indexer analyses your built web pages to create word indexes. You can use command-line switches to configure indexing -- the sections below describe the most useful options.
 
+::: aside
+
+[Re-run the StaticSearch indexer](__/docs/indexing/) whenever you build your site. Add it as a step in your build process so it runs automatically.
+
+::: /aside
+
 
 ## Indexer help
 

@@ -1,13 +1,11 @@
 nav.pagelist {
 
   margin-block: var(--margin-width);
+  border-block-end: 1px solid var(--color-back5);
 
   h2, h3 {
     font-size: var(--fsize-3);
     line-height: 1;
-    text-decoration: underline;
-    text-underline-offset: 0.15em;
-    text-decoration-thickness: 0.05em;
     color: var(--color-fore2);
     margin: 0;
   }
@@ -28,9 +26,9 @@ nav.pagelist {
   a {
     display: block;
     text-decoration: none;
-    padding: calc(0.75 * var(--list-indent)) var(--list-indent);
-    margin: 0.4rem;
-    border-radius: 5px;
+    padding: calc(0.8 * var(--list-indent)) var(--list-indent);
+    margin: 0;
+    border-block-start: 1px solid var(--color-back5);
     transition: all 0.2s linear;
     transition-property: color, background-color;
 
@@ -40,6 +38,9 @@ nav.pagelist {
 
       h2, h3 {
         color: var(--color-fore1);
+        text-decoration: underline;
+        text-underline-offset: 0.15em;
+        text-decoration-thickness: 0.05em;
       }
 
     }

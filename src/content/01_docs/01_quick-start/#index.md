@@ -12,14 +12,14 @@ Unlike other search systems, StaticSearch analyses the content of your generated
 
 ## 1. Add a StaticSearch widget
 
-For this quick start, we'll add a search widget first so you don't need to generate your site twice. Add the following tag to your pages or templates where you want a search icon to appear (typically, in your HTML `<header>`):
+For this quick start, we'll add the search widget first so you won't need to generate your site or index the pages twice. Add the following tag to your pages or templates where you want a search icon to appear (typically, in your HTML `<header>`):
 
 {{ HTML }}
 ```html
 <script type="module" src="/search/staticsearch-here.js"></script>
 ```
 
-Build your site using your [Static Site Generator](https://publican.dev/) -- the `<script>` tag won't do anything yet.
+Run your site's build process -- this `<script>` tag won't do anything yet.
 
 
 ## 2. Index your pages
@@ -38,12 +38,12 @@ and run the StaticSearch indexer:
 npx staticsearch ./
 ```
 
-This creates a `search` sub-directory with the client-side code and word index data.
+It creates a `search` sub-directory with the widget code and word index data.
 
 
 ## 3. Test your search
 
-Test your site by running a development web server, e.g.
+Test your site locally by running a development web server, e.g.
 
 {{ terminal }}
 ```bash
@@ -62,7 +62,13 @@ static-search::part(activate) {
 }
 ```
 
-Remember to [re-run the indexer](#a-2-index-your-html-pages) whenever you re-generate your site's HTML pages.
+::: aside
+
+### Re-run the indexer
+
+[Re-run the StaticSearch indexer](__/docs/indexing/) whenever you build your site. Add it as a step in your build process so it runs automatically.
+
+::: /aside
 
 
 ## Next steps

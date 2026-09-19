@@ -1,0 +1,49 @@
+/* utility classes */
+a.headlink {
+  visibility: hidden;
+  font-size: 0.6em;
+  vertical-align: text-top;
+  text-decoration: none;
+  user-select: none;
+
+  :where(h2, h3):where(:hover, :focus) & {
+    visibility: visible;
+  }
+
+}
+
+button, a.button {
+  display: block;
+  inline-size: max-content;
+  font-weight: var(--font-weight-bold);
+  text-align: center;
+  text-decoration: none;
+  padding: 0.2em 0.8em;
+  margin-inline: auto;
+  color: var(--color-fore3);
+  border: 1px solid var(--color-fore4);
+  background-color: transparent;
+  border-radius: 5px;
+
+  &:hover, &:active, &:focus {
+    color: var(--color-fore1);
+    background-color: var(--color-back5);
+    border-color: var(--color-back5);
+  }
+}
+
+.print, .alt {
+  display: none;
+}
+
+.center {
+  text-align: center;
+  margin-inline: auto;
+}
+
+.right {
+  text-align: end;
+  margin-inline: auto 0;
+}
+
+.f1 { font-size: var(--fsize-1); }

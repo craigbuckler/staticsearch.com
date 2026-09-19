@@ -7,7 +7,7 @@ priority: 0.8
 tags: quick start, script tag, web component, CSP
 ---
 
-After indexing your site, you can add a search facility to your site using a single `<script>` tag wherever you want an icon to appear:
+You can add a search widget to your site using a single `<script>` tag where you want the icon to appear:
 
 {{ template excerpt }}
 ```html
@@ -23,7 +23,7 @@ All code on this page presumes the indexer created a directory named `/search/`.
 
 ## StaticSearch web component
 
-The code above adds a `<static-search>` web component in the `<script>` location. Adding the web component yourself provides further search functionality. The following code adds a clickable **SEARCH** link:
+The code above places a `<static-search>` web component in the `<script>` location. Adding this web component yourself provides further search functionality. The following code adds a clickable **SEARCH** link:
 
 {{ HTML excerpt }}
 ```html
@@ -38,7 +38,7 @@ The code above adds a `<static-search>` web component in the `<script>` location
 
 Put the `<script>`{language=html} tag anywhere in your page. It's non-blocking and runs when the DOM is ready -- near the top of the HTML `<head>` is best. It loads 11Kb of JavaScript, 4Kb of CSS, and associated index data when the user starts searching.
 
-Put `<static-search>`{language=html} where you want a search icon or text -- perhaps in the page `<header>`{language=html}. It requires a single inner element the user can clicks to activate search.
+Put the `<static-search>`{language=html} tag where you want a **SEARCH** link to appear -- perhaps in the page `<header>`{language=html}. It requires a single inner element the user can click to activate search.
 
 
 ## Style the activation element
@@ -48,6 +48,7 @@ You can style the activation element using the following CSS selector, e.g.
 {{ CSS }}
 ```css
 static-search::part(activate) {
+  display: inline-block;
   font-weight: bold;
   color: red;
 }
@@ -124,6 +125,44 @@ The `maxresults` attribute limits the number of results for any search query:
 ```html
 <!-- limit to a maximum of 10 results -->
 <static-search maxresults="10">
+  <p>SEARCH</p>
+</static-search>
+```
+
+
+## Change the proportion of words to find
+
+The `minfound` attribute is a value between `0` and `1` indicating the proportion of search words that must be on a page before it appears in results.
+
+* `minfound="0"` (the default) is a **logical OR**: a page appears in results when it contains ANY of the search words. A search for "Star Wars movie" returns pages with one or more of those words.
+
+* `minfound="1"` is a **logical AND**: a page appears in results when it contains ALL the search words. A search for "Star Wars movie" returns pages with all three words.
+
+* `minfound="0.5"` means a page appears in results when it contains at least half the search words. A search for "Star Wars movie" returns pages with at least two of those words.
+
+{{ HTML excerpt }}
+```html
+<!-- page must have at least half the search terms -->
+<static-search minfound="0.5">
+  <p>SEARCH</p>
+</static-search>
+```
+
+Pages featuring more search words have a higher relevancy and appear higher in the results.
+
+
+## Change search fuzziness
+
+The `fuzzy` attribute sets the number of words used for partial string matches.
+
+* The default value is `6`: searching for a string such as "exp" finds the first six words in the index that start with those characters.
+
+* Setting `fuzzy="1"` or lower means the user must type most of a word before results appear.
+
+{{ HTML excerpt }}
+```html
+<!-- search for the first three matching words -->
+<static-search fuzzy="3">
   <p>SEARCH</p>
 </static-search>
 ```
